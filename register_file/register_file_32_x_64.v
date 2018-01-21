@@ -1,4 +1,4 @@
-module register_file_n_x_m(EN_A,EN_B, WR, BA, AA, DA, D, clock, reset, A, B);
+module register_file_32_x_64(EN_A,EN_B, WR, BA, AA, DA, D, clock, reset, A, B);
 // register file dimentions
 parameter n=32;
 parameter m=64;

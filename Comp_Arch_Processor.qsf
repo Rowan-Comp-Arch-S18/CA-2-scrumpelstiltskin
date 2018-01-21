@@ -54,8 +54,8 @@ set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
-set_global_assignment -name VERILOG_FILE register_1_bit.v
-set_global_assignment -name VERILOG_FILE register_n_bit.v
-set_global_assignment -name VERILOG_FILE dff.v
-set_global_assignment -name VERILOG_FILE register_file_nxm.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name VERILOG_FILE register_file/register_n_bit.v
+set_global_assignment -name VERILOG_FILE register_file/register_file_n_x_m.v
+set_global_assignment -name VERILOG_FILE register_file/register_1_bit.v
+set_global_assignment -name VERILOG_FILE register_file/dff.v

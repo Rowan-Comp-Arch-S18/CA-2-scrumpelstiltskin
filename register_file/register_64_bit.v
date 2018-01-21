@@ -1,4 +1,4 @@
-module register_n_bit(D, L, clk, reset, Q);
+module register_64_bit(D, L, clk, reset, Q);
 // register  dimentions
 parameter n=64;
 
