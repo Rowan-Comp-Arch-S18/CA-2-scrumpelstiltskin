@@ -1,3 +1,6 @@
 *.bak
 db/
 output_files/
+simulation/
+output_files/
+incremental_db/

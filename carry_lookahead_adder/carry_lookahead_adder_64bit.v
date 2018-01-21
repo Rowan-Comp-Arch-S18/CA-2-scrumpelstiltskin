@@ -14,7 +14,7 @@ module carry_lookahead_adder_64bit(a, b, cin, cout, G, P, s);
 
     assign cout = c[3];
 
-    carry_lookahead_adder_4bit adder0 (
+    carry_lookahead_adder_16bit adder0 (
         .a(a[15:0]),
         .b(b[15:0]),
         .cin(cin),
@@ -23,7 +23,7 @@ module carry_lookahead_adder_64bit(a, b, cin, cout, G, P, s);
         .s(s[15:0])
     );
 
-    carry_lookahead_adder_4bit adder1 (
+    carry_lookahead_adder_16bit adder1 (
         .a(a[31:16]),
         .b(b[31:16]),
         .cin(c[0]),
@@ -32,7 +32,7 @@ module carry_lookahead_adder_64bit(a, b, cin, cout, G, P, s);
         .s(s[31:16])
     );
 
-    carry_lookahead_adder_4bit adder2 (
+    carry_lookahead_adder_16bit adder2 (
         .a(a[47:32]),
         .b(b[47:32]),
         .cin(c[1]),
@@ -41,13 +41,13 @@ module carry_lookahead_adder_64bit(a, b, cin, cout, G, P, s);
         .s(s[47:32])
     );
 
-    carry_lookahead_adder_4bit adder3 (
+    carry_lookahead_adder_16bit adder3 (
         .a(a[63:48]),
         .b(b[63:48]),
         .cin(c[2]),
         .G(g[3]),
         .P(p[3]),
-        .s(s[47:32])
+        .s(s[63:48])
     );
 
     carry_lookahead_logic_4bit lookahead_logic (

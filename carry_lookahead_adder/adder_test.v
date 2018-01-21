@@ -19,19 +19,28 @@ module adder_test();
     );
 
     initial begin
-        a <= 0;
-        b <= 0;
-        cin <= 0;
+        // (64^2)/2 - 50
+        a <= 64'd9223372036854775758;
+        b <= 64'd9223372036854775758;
+        cin <= 1'b1;
     end
 
     always begin
         #1
-        a <= $random%10;
-        b <= $random%10;
+        if (a < 64'd9223372036854775858) begin
+            a <= a + 64'd1;
+        end else begin
+            a <= 64'd9223372036854775758;
+        end
     end
 
     always begin
-        #20
+        #100;
+        b <= b + 64'd1;
+    end
+
+    always begin
+        #10000
         $stop;
     end
 endmodule
