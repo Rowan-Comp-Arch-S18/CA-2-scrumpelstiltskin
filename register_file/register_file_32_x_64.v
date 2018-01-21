@@ -1,4 +1,4 @@
-module register_file_n_x_m(EN_A,EN_B, WR, BA, AA, DA, D, clock, reset, A, B);
+module register_file_32_x_64(EN_A,EN_B, WR, BA, AA, DA, D, clock, reset, A, B);
 // register file dimentions
 parameter n=32;
 parameter m=64;
@@ -22,7 +22,7 @@ reg [m-1:0] R[n-1:0];
 generate
 genvar i;
   for(i = 0; i < n; i = i + 1) begin : registers_m_bit
-    register_n_bit register_m_bit_i (.D(), .L(), .clk(clk), .reset(reset), .Q());
+    register_64_bit register_64_bit_i (.D(), .L(), .clk(clk), .reset(reset), .Q());
   end
 endgenerate
 
