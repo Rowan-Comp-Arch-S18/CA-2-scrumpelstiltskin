@@ -22,7 +22,7 @@ reg [m-1:0] R[n-1:0];
 generate
 genvar i;
   for(i = 0; i < n; i = i + 1) begin : registers_m_bit
-    register_n_bit register_m_bit_i (.D(), .L(), .clk(clk), .reset(reset), .Q());
+    register_64_bit register_64_bit_i (.D(), .L(), .clk(clk), .reset(reset), .Q());
   end
 endgenerate
 
