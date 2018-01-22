@@ -49,6 +49,7 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     wire [31:0] register_out29;
     wire [31:0] register_out30;
     wire [31:0] register_out31;
+    assign register_out31 = 64'b0;
 
     register reg00 (register_out00, data_in, load_enable[00], reset, clock);
     register reg01 (register_out01, data_in, load_enable[01], reset, clock);
