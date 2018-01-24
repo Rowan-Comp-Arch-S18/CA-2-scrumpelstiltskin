@@ -117,10 +117,10 @@ module register_file_32_x_64(out_a, out_b, select_a, select_b, data_in, address,
     defparam reg30.n = 64;
     defparam reg31.n = 64;
 
-    mux mux_a (out_a, select_a, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
+    mux mux_a (out_a, select_a, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
 
 
-    mux mux_b (out_b, select_b, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
+    mux mux_b (out_b, select_b, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
 
 endmodule
 
