@@ -1,17 +1,18 @@
-module alu_testbench();
+module alu_tb();
 
     reg [63:0] a_in;
     reg [63:0] b_in;
-    reg cin;
 
     reg [4:0] function_select;
 
     wire [63:0] data_out;
-    wire [3:0] status;
-
     reg [63:0] expected;
+
+    wire [3:0] status;
     reg [3:0] expected_status;
 
+    reg cin;
+    wire cout;
     wire [2:0] func;
     wire [1:0] neg;
 
@@ -20,13 +21,14 @@ module alu_testbench();
 
     reg [63:0] dump;
 
-    alu alu_dut (
-        .a(a_in),
-        .b(b_in),
-        .cin(cin),
-        .function_select(function_select),
-        .f(data_out),
-        .status(status)
+    alu dut1 (
+        function_select,
+        a_in,
+        b_in,
+        cin,
+        data_out,
+        cout,
+        status
     );
 
     initial begin
@@ -48,6 +50,17 @@ module alu_testbench();
         b_in <= {$random, $random};
         #10;
         function_select <= function_select + 1;
+        #1;
+        $display("\FS [%b] FLIP[%b]", function_select[4:2], function_select[1:0]);
+        if(data_out != expected)
+            $display("ERR: A [%b] [%h]\nB [%b] [%h]\nF [%b] [%h]\nX [%b] [%h]", a_in, a_in, b_in, b_in, data_out, data_out, expected, expected);
+        else
+            $display("PASS: DATA_OUT");
+        if(expected_status != status)
+            $display("ERR:  STATUS S [%b]\n\t       X [%b]",expected_status, status);
+        else
+            $display("PASS: STATUS S");
+        $display("\n");
     end
 
     always @ (*) begin
@@ -64,24 +77,24 @@ module alu_testbench();
             {3'd1, 2'b01}: expected = ~a_in | b_in;
             {3'd2, 2'b01}: expected = ~a_in + b_in + cin;
             {3'd3, 2'b01}: expected = ~a_in ^ b_in;
-            {3'd4, 2'b01}: expected = a_in << b_in[5:0];
-            {3'd5, 2'b01}: expected = a_in >> b_in[5:0];
+            {3'd4, 2'b01}: expected = ~a_in << b_in[5:0];
+            {3'd5, 2'b01}: expected = ~a_in >> b_in[5:0];
             {3'd6, 2'b01}: expected = 64'd0;
             {3'd7, 2'b01}: expected = 64'd0;
             {3'd0, 2'b10}: expected = a_in & ~b_in;
             {3'd1, 2'b10}: expected = a_in | ~b_in;
             {3'd2, 2'b10}: expected = a_in + ~b_in + cin;
             {3'd3, 2'b10}: expected = a_in ^ ~b_in;
-            {3'd4, 2'b10}: expected = a_in << b_in;
-            {3'd5, 2'b10}: expected = a_in >> b_in;
+            {3'd4, 2'b10}: expected = a_in << ~b_in[5:0];
+            {3'd5, 2'b10}: expected = a_in >> ~b_in[5:0];
             {3'd6, 2'b10}: expected = 64'd0;
             {3'd7, 2'b10}: expected = 64'd0;
             {3'd0, 2'b11}: expected = ~a_in & ~b_in;
             {3'd1, 2'b11}: expected = ~a_in | ~b_in;
             {3'd2, 2'b11}: expected = ~a_in + ~b_in + cin;
             {3'd3, 2'b11}: expected = ~a_in ^ ~b_in;
-            {3'd4, 2'b11}: expected = a_in << b_in;
-            {3'd5, 2'b11}: expected = a_in >> b_in;
+            {3'd4, 2'b11}: expected = ~a_in << ~b_in[5:0];
+            {3'd5, 2'b11}: expected = ~a_in >> ~b_in[5:0];
             {3'd6, 2'b11}: expected = 64'd0;
             {3'd7, 2'b11}: expected = 64'd0;
         endcase
