@@ -13,7 +13,7 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     wire [31:0] address_select;
     wire [31:0] load_enable;
 
-    decoder write_decoder (data_address, address_select);
+    decoder write_decoder (address, address_select);
 
     assign load_enable = address_select & {write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write, write};
 
@@ -48,7 +48,7 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     wire [63:0] register_out28;
     wire [63:0] register_out29;
     wire [63:0] register_out30;
-    wire [63:0] register_out63;
+    wire [63:0] register_out31;
 
     register reg00 (register_out00, data_in, load_enable[00], reset, clock);
     register reg01 (register_out01, data_in, load_enable[01], reset, clock);
@@ -81,7 +81,7 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     register reg28 (register_out28, data_in, load_enable[28], reset, clock);
     register reg29 (register_out29, data_in, load_enable[29], reset, clock);
     register reg30 (register_out30, data_in, load_enable[30], reset, clock);
-    register reg31 (register_out31, data_in, load_enable[31], reset, clock);
+    assign register_out31 = 63'd0;
 
     defparam reg00.n = 64;
     defparam reg01.n = 64;
@@ -114,13 +114,12 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     defparam reg28.n = 64;
     defparam reg29.n = 64;
     defparam reg30.n = 64;
-    defparam reg31.n = 64;
 
-    mux mux_a (out_a, select_a, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
+    mux_32 mux_a (out_a, select_a, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
 
     defparam mux_a.n = 64;
 
-    mux mux_b (out_b, select_b, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
+    mux_32 mux_b (out_b, select_b, register_out00, register_out01, register_out02, register_out03, register_out04, register_out05, register_out06, register_out07, register_out08, register_out09, register_out10, register_out11, register_out12, register_out13, register_out14, register_out15, register_out16, register_out17, register_out18, register_out19, register_out20, register_out21, register_out22, register_out23, register_out24, register_out25, register_out26, register_out27, register_out28, register_out29, register_out30, register_out31);
 
     defparam mux_b.n = 64;
 

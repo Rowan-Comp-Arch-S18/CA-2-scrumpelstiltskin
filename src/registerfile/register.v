@@ -8,6 +8,10 @@ module register(data_out, data_in, load, reset, clock);
     input reset;
     input clock;
 
+    initial begin
+        data_out <= {n{1'b0}};
+    end
+
     always @ (posedge clock or posedge reset) begin
         if (reset) begin
             data_out <= 0;
