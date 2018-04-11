@@ -103,14 +103,12 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
 
     reg [3:0] status_register;
 
-    always @ (posedge clock) begin
-        if (status_load) begin
+    always @ (posedge clock or posedge reset) begin
+        if (reset) begin
+            status_register <= 4'b0;
+        end else if (status_load) begin
             status_register <= alu_status;
         end
-    end
-
-    always @ (posedge reset) begin
-        status_register <= 4'b0;
     end
 
     assign status = {status_register, alu_status[0]};
@@ -121,7 +119,7 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
 
     ram ram(
         .address(address_bus[15:3]),
-        .clock(~clock),
+        .clock(clock),
         .in(data_bus),
         .out(ram_out),
         .write(ram_write)
@@ -130,6 +128,8 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
     wire [63:0] program_counter_in;
     wire [63:0] program_counter_out;
     wire [63:0] program_counter_out_next;
+
+    assign program_counter_in = program_counter_input_select ? register_file_out_a : immediate;
 
     program_counter pc(
         .ps(program_counter_function_select),
