@@ -12,7 +12,6 @@ module alu_tb();
     reg [3:0] expected_status;
 
     reg cin;
-    wire cout;
     wire [2:0] func;
     wire [1:0] neg;
 
@@ -27,7 +26,6 @@ module alu_tb();
         b_in,
         cin,
         data_out,
-        cout,
         status
     );
 
@@ -49,7 +47,7 @@ module alu_tb();
         a_in <= {$random, $random};
         b_in <= {$random, $random};
         #10;
-        function_select <= function_select + 1;
+        function_select = function_select + 1;
         #1;
         $display("\FS [%b] FLIP[%b]", function_select[4:2], function_select[1:0]);
         if(data_out != expected)
@@ -108,13 +106,13 @@ module alu_tb();
             end
             2'b01: begin
                 expected_status[0] = ~(~a_in[63] ^ b_in[63]) & (expected[63] ^ ~a_in[63]);
-                {expected_status[1], dump} = ~a_in + b_in + cin;
+                {expected_status[1], dump} = a_in + ~b_in + cin;
                 expected_status[2] = expected[63];
                 expected_status[3] = (expected == 64'd0) ? 1'b1 : 1'b0;
             end
             2'b10: begin
                 expected_status[0] = ~(a_in[63] ^ ~b_in[63]) & (expected[63] ^ a_in[63]);
-                {expected_status[1], dump} = a_in + ~b_in + cin;
+                {expected_status[1], dump} = ~a_in + b_in + cin;
                 expected_status[2] = expected[63];
                 expected_status[3] = (expected == 64'd0) ? 1'b1 : 1'b0;
             end

@@ -47,4 +47,9 @@ assign DATA_BUS = EN_RAM ? RAM_out : {64{1'bz}};
 assign status = ALU_status;
 
 
+///
+////
+//
+
+pc pc_inst (pc, pc4, in, ps, clock, reset);
 endmodule
