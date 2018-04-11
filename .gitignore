@@ -2,6 +2,8 @@
 db/
 output_files/
 simulation/
-Comp_Arch_Processor_nativelink_simulation.rpt
 incremental_db/
 simulation/
+*.rpt
+*.qpf
+*.qsf
