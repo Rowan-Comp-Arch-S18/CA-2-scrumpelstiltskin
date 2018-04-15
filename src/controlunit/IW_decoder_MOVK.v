@@ -1,6 +1,7 @@
-module IW_decoder_MOVK (I, state, cw_IW);
+module IW_decoder_MOVK (I, state, status, cw_IW);
 
     input [31:0] I;
+    input [4:0] status;
 
     wire [8:0] op;
     wire [1:0] sh_16;
