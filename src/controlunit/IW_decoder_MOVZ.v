@@ -30,9 +30,9 @@ module IW_decoder_MOVZ (I, state, status, cw_IW, k);
     // 33 in total
     output [32:0] cw_IW;
     output [63:0] k;
-    assign k =( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,16'hffff,16'hffff,16'hffff}) : ({16'hffff, immediate,16'hffff, 16'hffff}) ) : ( sh_16[0] == 1'b1 ? ({16'hffff, 16'hffff, immediate, 16'hffff}) : ({16'hffff, 16'hffff, 16'hffff, immediate}) ) );
+    assign k =( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,48'b0}) : ({16'b0, immediate,32'b0}) ) : ( sh_16[0] == 1'b1 ? ({48'b0, immediate, 16'b0}) : ({48'b0, immediate}) ) );
 
-    wire alu_en = 1'b1; // ALU is enabled
+    wire alu_en = 1'b1; // ALU is disabled
     wire alu_bs = 1'b1; // K is selected for input to ALU
 
     // ALU FS[4:2]
