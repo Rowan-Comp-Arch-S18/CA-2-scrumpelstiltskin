@@ -17,5 +17,5 @@ module rom_case(out, address);
             default: out = 32'hD60003E0;                          // BR XZR            
         endcase
     end
-end
+endmodule
 
