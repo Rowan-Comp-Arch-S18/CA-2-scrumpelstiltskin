@@ -44,7 +44,7 @@ module BL_decoder(I, state, status, cw_IW, K);
     wire [4:0] rf_sa = 5'd31; // A register address don't care
     wire [4:0] rf_sb = 5'd31; // B register address don't care
     wire [4:0] rf_da = 5'd30;
-    wire rf_w = 1'b0;
+    wire rf_w = 1'b1;
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0;
     wire pc_en = 1'b1;
