@@ -1,8 +1,9 @@
 module mux_8(out, select, in0, in1, in2, in3, in4, in5, in6, in7);
-    input [63:0] in0, in1, in2, in3, in4, in5, in6, in7;
+    parameter n = 64;
+    input [n-1:0] in0, in1, in2, in3, in4, in5, in6, in7;
     input [2:0] select;
 
-    output reg [63:0] out;
+    output reg [n-1:0] out;
 
     always @ (*) begin
         case (select)
