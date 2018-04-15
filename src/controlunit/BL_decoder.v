@@ -53,6 +53,6 @@ module BL_decoder(I, state, status, cw_IW, K);
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b00;
 
-    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_fs, pc_is, status_ld, next_state};
+    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_en, pc_fs, pc_is, status_ld, next_state};
 
 endmodule

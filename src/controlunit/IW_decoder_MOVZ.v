@@ -30,10 +30,10 @@ module IW_decoder_MOVZ (I, state, status, cw_IW, k);
     // 33 in total
     output [32:0] cw_IW;
     output [63:0] k;
-    assign k =( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
+    assign k =( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,16'hffff,16'hffff,16'hffff}) : ({16'hffff, immediate,16'hffff, 16'hffff}) ) : ( sh_16[0] == 1'b1 ? ({16'hffff, 16'hffff, immediate, 16'hffff}) : ({16'hffff, 16'hffff, 16'hffff, immediate}) ) );
 
-    wire alu_en = state == 1'b1; // ALU is enabled
-    wire alu_bs = 1; // K is selected for input to ALU
+    wire alu_en = 1'b1; // ALU is enabled
+    wire alu_bs = 1'b1; // K is selected for input to ALU
 
     // ALU FS[4:2]
     //   000   001   010   011   100   101  110 111
@@ -49,12 +49,12 @@ module IW_decoder_MOVZ (I, state, status, cw_IW, k);
     wire rf_w = 1'b1;
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0; // don't write to ram
+    wire pc_en = 1'b0; // disable pc data bus
     wire [1:0] pc_fs = 2'b01; // PC <= PC + 4
     wire pc_is = 64'h0; // pc in is don't care
-    wire status_ld = 1'b0; // diable status load
+    wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b0;
 
-
-    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_fs, pc_is, status_ld, next_state};
+    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_en, pc_fs, pc_is, status_ld, next_state};
 
 endmodule

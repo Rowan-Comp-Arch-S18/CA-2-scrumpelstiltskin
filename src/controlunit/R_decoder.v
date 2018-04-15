@@ -2,7 +2,7 @@ module R_decoder(I, state, status, cw_IW, K);
 
     input [31:0] I;
     input [4:0] status;
-	 input [1:0] state;
+    input [1:0] state;
 
     wire [10:0] op;
     wire [4:0] Rm;
@@ -40,8 +40,8 @@ module R_decoder(I, state, status, cw_IW, K);
     // { and   or    add   xor   left right  0   0 }
     // ALU FS[1] ~b
     // ALU FS[0] ~a
-    wire [4:0] alu_fs = op[1] ? ({2'b10, ~op[0], 2'b00}) : 
-	 ({1'b0, (op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]) | (~op[9]&~op[8]&op[3]),(~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]), (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]), 1'b0});
+    wire [4:0] alu_fs = op[1] ? ({2'b10, ~op[0], 2'b00}) :
+     ({1'b0, (op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]) | (~op[9]&~op[8]&op[3]),(~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]), (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]), 1'b0});
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A register address is Rn
@@ -56,6 +56,6 @@ module R_decoder(I, state, status, cw_IW, K);
     wire status_ld = op[8];
     wire [1:0] next_state = 2'b00;
 
-    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_fs, pc_is, status_ld, next_state};
+    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_en, pc_fs, pc_is, status_ld, next_state};
 
 endmodule
