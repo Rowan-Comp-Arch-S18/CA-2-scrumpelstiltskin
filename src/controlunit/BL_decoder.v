@@ -44,7 +44,7 @@ module BL_decoder(I, state, status, cw_IW, K);
     wire [4:0] rf_da = 5'd30;
     wire rf_w =  ~store_load;
     wire ram_en = 1'b1; // enable ram
-    wire ram_w = store_load;
+    wire ram_w = 1'b0;
     wire pc_en = 1'b1;
     wire [1:0] pc_fs = 2'b11; // PC+4*pc_in+4
     wire pc_is = {{38{se_address[25]}},se_address}; // pc in is sign extended address
