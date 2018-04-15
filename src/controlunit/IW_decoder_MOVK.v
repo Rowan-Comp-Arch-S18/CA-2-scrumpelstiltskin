@@ -30,7 +30,7 @@ module IW_decoder_MOVK (I, state, status, cw_IW, K);
     // 33 in total
     output [32:0] cw_IW;
 
-    wire zf_immediate = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
+    wire [63:0]zf_immediate = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
     wire [63:0] bit_mask = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({4'h0,4'hf,4'hf,4'hf}) : ({4'hf, 4'h0,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, 4'h0, 4'hf}) : ({4'hf, 4'hf, 4'hf, 4'h0}) ) );
 
     output [63:0] K;
@@ -54,7 +54,7 @@ module IW_decoder_MOVK (I, state, status, cw_IW, K);
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0; // don't write to ram
     wire [1:0] pc_fs = state == 2'b00 ? 2'b00 : 2'b01; // state 00: PC <= PC, state 01: PC <= PC + 4
-    wire pc_is = 64'd0; // pc in is don't care
+    wire pc_is = 1'b0; // pc in is don't care
     wire status_ld = 1'b0; // diable status load
     wire [1:0] next_state = state == 2'b00 ? 2'b01 : 2'b00;
 
