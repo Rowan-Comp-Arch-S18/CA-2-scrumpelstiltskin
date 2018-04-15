@@ -53,6 +53,7 @@ module D_decoder(I, state, status, cw_IW, K);
     wire rf_w =  ~store_load;
     wire ram_en = 1'b1; // enable ram
     wire ram_w = store_load;
+    wire pc_en = 1'b0;
     wire [1:0] pc_fs = 2'b01; // PC+4
     wire pc_is = 1'b0; // pc in is don't care
     wire status_ld = 1'b0; // disable status load
