@@ -49,6 +49,14 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
     wire [32:0] i_logic_controlword;
     wire [63:0] i_logic_constant;
 
+    I_logic i_logic(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .I_logic(i_logic_controlword),
+        .k(i_logic_constant)
+    );
+
     // IW-Format Decoder
     wire [32:0] iw_controlword;
     wire [63:0] iw_constant;
@@ -65,6 +73,14 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
     wire [32:0] r_controlword;
     wire [63:0] r_constant;
 
+    R_decoder r(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .cw_IW(r_controlword),
+        .K(r_constant)
+    );
+
     // Choose which of the data formats is correct
     wire [32:0] data_controlword;
     wire [63:0] data_constant;
@@ -79,7 +95,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .in6({r_controlword, r_constant}),
         .in7({33'b0, 64'b0}),
         .out({data_controlword, data_constant}),
-        .select(instruction[24:22])
+        .select(instruction[25:23])
     );
 
     defparam data_mux.n = 97;
@@ -158,11 +174,11 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .in6({bcond_controlword, br_constant}),
         .in7({33'b0, 64'b0}),
         .out({branch_controlword, branch_constant}),
-        .select(instruction[30:28])
+        .select(instruction[31:29])
     );
 
     defparam branch_mux.n = 97;
 
-    assign {controlword_and_state, constant} = instruction[25] ? {branch_controlword, branch_constant} : {data_controlword, data_constant};
+    assign {controlword_and_state, constant} = instruction[26] ? {branch_controlword, branch_constant} : {data_controlword, data_constant};
 
 endmodule
