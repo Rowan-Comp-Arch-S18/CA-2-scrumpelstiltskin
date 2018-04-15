@@ -1,5 +1,5 @@
 
-module b_decoder(instruction, state, status, controlword, constant);
+module b_decoder(instruction, state, status, controlword, constant); // double check if correct
     
     input [31:0] instruction;
     input [1:0] state;

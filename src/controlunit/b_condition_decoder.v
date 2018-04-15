@@ -26,7 +26,7 @@ module b_condition_decoder(instruction, state, status, controlword, constant);
 
     wire status_load;
 
-    assign constant = {{45{instruction[23]}, instruction[23:5]}};
+    assign constant = {{45{instruction[23]}, instruction[23:5]}}; // double check if correct
 
     assign controlword = {
         databus_alu_enable,
