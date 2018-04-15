@@ -1,4 +1,4 @@
-module IW_decoder(I, state, cw_IW);
+module IW_decoder(I, state, status, cw_IW);
     input [31:0] I;
 
     // Control Word includes:
