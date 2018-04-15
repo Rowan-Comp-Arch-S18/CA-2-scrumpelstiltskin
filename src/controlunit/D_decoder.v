@@ -48,7 +48,7 @@ module D_decoder(I, state, status, cw_IW, K);
 
     wire rf_b_en = ~store_load; // K should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A outputs zero register
-    wire [4:0] rf_sb = 5'd31; // B register address don't care
+    wire [4:0] rf_sb = Rt; // B register address don't care
     wire [4:0] rf_da = Rt;
     wire rf_w = store_load;
     wire ram_en = store_load; // enable ram
