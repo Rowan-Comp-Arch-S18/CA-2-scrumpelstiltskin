@@ -1,4 +1,4 @@
-module IW_decoder(I, state, status, cw_IW);
+module IW_decoder(I, state, status, cw_IW, K);
     input [31:0] I;
 
     // Control Word includes:
@@ -19,6 +19,9 @@ module IW_decoder(I, state, status, cw_IW);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
+    output [63:0] K;
+
+    assign K = 64'b0;
 
     wire [32:0] cw_MOVK, cw_MOVZ;
     IW_decoder_MOVK IW_decoder_MOVK_inst (I, state, cw_MOVK);

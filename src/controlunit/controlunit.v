@@ -23,12 +23,30 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
 
     wire [32:0] d_controlword;
     wire [63:0] d_constant;
+
+    D_decoder d(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .cw_IW(d_controlword),
+        .K(d_constant)
+    );
+
     wire [32:0] i_arith_controlword;
     wire [63:0] i_arith_constant;
     wire [32:0] i_logic_controlword;
     wire [63:0] i_logic_constant;
     wire [32:0] iw_controlword;
     wire [63:0] iw_constant;
+
+    IW_decoder iw(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .cw_IW(iw_controlword),
+        .K(iw_constant)
+    );
+
     wire [32:0] r_controlword;
     wire [63:0] r_constant;
 
@@ -52,6 +70,13 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
 
     wire [32:0] b_controlword;
     wire [63:0] b_constant;
+
+    b_decoder b(
+        .instruction(instruction),
+        .controlword(b_controlword),
+        .constant(b_constant)
+    );
+
     wire [32:0] bcond_controlword;
     wire [63:0] bcond_constant;
     wire [32:0] bl_controlword;
