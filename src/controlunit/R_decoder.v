@@ -33,7 +33,7 @@ module R_decoder(I, state, status, cw_IW, K);
     output [63:0] K;
     assign K = {64'b0};
 
-    wire alu_en = 1'b0; // ALU is disabled
+    wire alu_en = 1'b1; // ALU is enabled
     wire alu_bs = 1'b0; // B is selected for input to ALU
 
     // ALU FS[4:2]
