@@ -51,7 +51,7 @@ module IW_decoder_MOVZ (I, state, status, cw_IW, k);
     wire ram_w = 1'b0; // don't write to ram
     wire pc_en = 1'b0; // disable pc data bus
     wire [1:0] pc_fs = 2'b01; // PC <= PC + 4
-    wire pc_is = 64'h0; // pc in is don't care
+    wire pc_is = 1'b0; // pc in is don't care
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b0;
 
