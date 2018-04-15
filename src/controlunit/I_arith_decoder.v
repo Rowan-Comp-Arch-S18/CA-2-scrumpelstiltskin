@@ -80,7 +80,7 @@ module I_arith_decoder(state, status, I, I_a, k);
 				assign databus_register_file_b_enable = 1'b0;
 				assign register_sa = Rn;
 				assign register_sb = 5'b00000;
-				assign register_wa = Rm;
+				assign register_wa = Rd;
 				assign register_w = 1'b1;
 				assign databus_ram_enable = 1'b0;
 				assign ram_w = 1'b0;

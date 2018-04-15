@@ -37,6 +37,14 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
     wire [32:0] i_arith_controlword;
     wire [63:0] i_arith_constant;
 
+    I_arith_decoder i_arith(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .I_a(i_arith_controlword),
+        .k(i_arith_constant)
+    );
+
     // I-Format Logic Decoder
     wire [32:0] i_logic_controlword;
     wire [63:0] i_logic_constant;
