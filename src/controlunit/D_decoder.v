@@ -46,7 +46,7 @@ module D_decoder(I, state, status, cw_IW, K);
     // ALU FS[0] ~a
     wire [4:0] alu_fs = 5'b010_00; // ALU adds A+K
 
-    wire rf_b_en = 1'b0; // B should not be enabled on data bus
+    wire rf_b_en = 1'b1; // K should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A outputs zero register
     wire [4:0] rf_sb = 5'd31; // B register address don't care
     wire [4:0] rf_da = Rt;
