@@ -34,6 +34,6 @@ module IW_decoder(I, state, status, cw_IW, K);
     IW_decoder_MOVK IW_decoder_MOVK_inst (I, state, status, cw_MOVK, K_MOVK);
     IW_decoder_MOVZ IW_decoder_MOVZ_inst (I, state, status, cw_MOVZ, K_MOVZ);
 
-    assign {K, cw_IW} = op[8] ? {K_MOVK, cw_MOVK} : {K_MOVZ, cw_MOVZ};
+    assign {K, cw_IW} = op[6] ? {K_MOVK, cw_MOVK} : {K_MOVZ, cw_MOVZ};
 
 endmodule
