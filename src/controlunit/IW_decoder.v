@@ -28,4 +28,4 @@ module IW_decoder(I, state, status, cw_IW, K);
     IW_decoder_MOVZ IW_decoder_MOVZ_inst (I, state, cw_MOVZ);
     assign cw_IW = op[8] ? cw_MOVK : cw_MOVZ;
 
-}
+endmodule

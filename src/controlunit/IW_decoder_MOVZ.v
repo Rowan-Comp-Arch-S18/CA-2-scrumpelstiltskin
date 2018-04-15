@@ -42,13 +42,13 @@ module IW_decoder_MOVZ (I, state, status, cw_IW, k);
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = 5'd31; // A outputs zero register
-    wire [4:0] rf_sb = 5'bxxxxx; // B register address don't care
+    wire [4:0] rf_sb = 5'b11111; // B register address don't care
     wire [4:0] rf_da = Rd;
-    wire rf_w 1'b1;
+    wire rf_w = 1'b1;
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0; // don't write to ram
     wire [1:0] pc_fs = 2'b01; // PC <= PC + 4
-    wire pc_is = 64'hxxxx_xxxx_xxxx_xxxx; // pc in is don't care
+    wire pc_is = 64'h0; // pc in is don't care
     wire status_ld = 1'b0; // diable status load
     wire [1:0] next_state = 2'b0;
 
