@@ -1,6 +1,7 @@
-module IW_decoder_MOVK (I, state, status, cw_IW);
+module IW_decoder_MOVK (I, state, status, cw_IW, K);
 
     input [31:0] I;
+    input [1:0] state;
     input [4:0] status;
 
     wire [8:0] op;
@@ -30,9 +31,9 @@ module IW_decoder_MOVK (I, state, status, cw_IW);
     output [32:0] cw_IW;
 
     wire zf_immediate = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
-    wire [63:0] bit_mask = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({4'h0,4'hf,4'hf,4'hf}) : ({4'hf, 4'h0,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ({4'hf, 4'hf, 4'h0, 4'hf}) : ({4'hf, 4'hf, 4'hf, 4'h0}) ) );
+    wire [63:0] bit_mask = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({4'h0,4'hf,4'hf,4'hf}) : ({4'hf, 4'h0,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, 4'h0, 4'hf}) : ({4'hf, 4'hf, 4'hf, 4'h0}) ) );
 
-    output [63:0] k = state == 2'b00 ? bit_mask : zf_immediate;
+    output [63:0] K = state == 2'b00 ? bit_mask : zf_immediate;
 
     wire alu_en = state == 1'b1; // ALU is enabled
     wire alu_bs = 1; // K is selected for input to ALU
@@ -48,7 +49,7 @@ module IW_decoder_MOVK (I, state, status, cw_IW);
     wire [4:0] rf_sa = Rd; // A outputs zero register
     wire [4:0] rf_sb = 5'd31; // B register address don't care
     wire [4:0] rf_da = Rd;
-    wire rf_w 1'b1;
+    wire rf_w = 1'b1;
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0; // don't write to ram
     wire [1:0] pc_fs = state == 2'b00 ? 2'b00 : 2'b01; // state 00: PC <= PC, state 01: PC <= PC + 4

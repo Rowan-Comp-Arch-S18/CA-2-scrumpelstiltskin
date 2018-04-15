@@ -1,6 +1,7 @@
 module IW_decoder_MOVZ (I, state, status, cw_IW, k);
 
     input [31:0] I;
+    input [1:0] state;
     input [4:0] status;
 
     wire [8:0] op;

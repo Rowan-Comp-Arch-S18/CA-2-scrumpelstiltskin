@@ -39,7 +39,7 @@ module BR_decoder(I, state, status, cw_IW, K);
     // { and   or    add   xor   left right  0   0 }
     // ALU FS[1] ~b
     // ALU FS[0] ~a
-    wire [4:0] alu_fs = 5'111_11; // ALU is zero to be safe
+    wire [4:0] alu_fs = 5'b111_11; // ALU is zero to be safe
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A register address is Rn

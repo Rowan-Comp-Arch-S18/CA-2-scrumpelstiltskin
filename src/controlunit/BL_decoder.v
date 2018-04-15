@@ -36,18 +36,18 @@ module BL_decoder(I, state, status, cw_IW, K);
     // { and   or    add   xor   left right  0   0 }
     // ALU FS[1] ~b
     // ALU FS[0] ~a
-    wire [4:0] alu_fs = 5'111_11; // ALU is zero to be safe
+    wire [4:0] alu_fs = 5'b111_11; // ALU is zero to be safe
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = 5'd31; // A register address don't care
     wire [4:0] rf_sb = 5'd31; // B register address don't care
-    wire [4:0] rf_da = 5'30;
+    wire [4:0] rf_da = 5'd30;
     wire rf_w =  ~store_load;
     wire ram_en = 1'b1; // enable ram
     wire ram_w = store_load;
     wire pc_en = 1'b1;
     wire [1:0] pc_fs = 2'b11; // PC+4*pc_in+4
-    wire pc_is = {38{se_address[25]},se_address}; // pc in is sign extended address
+    wire pc_is = {{38{se_address[25]}},se_address}; // pc in is sign extended address
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b00;
 
