@@ -21,6 +21,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         end
     end
 
+    // D-Format Decoder
     wire [32:0] d_controlword;
     wire [63:0] d_constant;
 
@@ -32,10 +33,15 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .K(d_constant)
     );
 
+    // I-Format Arithmatic Decoder
     wire [32:0] i_arith_controlword;
     wire [63:0] i_arith_constant;
+
+    // I-Format Logic Decoder
     wire [32:0] i_logic_controlword;
     wire [63:0] i_logic_constant;
+
+    // IW-Format Decoder
     wire [32:0] iw_controlword;
     wire [63:0] iw_constant;
 
@@ -47,9 +53,11 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .K(iw_constant)
     );
 
+    // R-Format Decoder
     wire [32:0] r_controlword;
     wire [63:0] r_constant;
 
+    // Choose which of the data formats is correct
     wire [32:0] data_controlword;
     wire [63:0] data_constant;
 
@@ -68,24 +76,67 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
 
     data_mux.n = 97;
 
+    // B Instruction Decoder
     wire [32:0] b_controlword;
     wire [63:0] b_constant;
 
     b_decoder b(
         .instruction(instruction),
+        .state(state),
+        .status(status),
         .controlword(b_controlword),
         .constant(b_constant)
     );
 
+    // B Conditional Instruction Decoder
     wire [32:0] bcond_controlword;
     wire [63:0] bcond_constant;
+
+    b_condition_decoder bcond(
+        .instruction(instruction),
+        .state(state),
+        .status(status),
+        .controlword(bcond_controlword),
+        .constant(bcond_constant)
+    );
+
+    // BL Instruction Decoder
     wire [32:0] bl_controlword;
     wire [63:0] bl_constant;
+
+    BL_decoder bl(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .cw_IW(bl_controlword),
+        .K(bl_constant)
+    );
+
+    // CBZ/CBNZ Instruction Decoder
     wire [32:0] cb_controlword;
     wire [63:0] cb_constant;
+
+    cbz_cbnz_decoder cb(
+        .instruction(instruction),
+        .state(state),
+        .status(status),
+        .controlword(cb_controlword),
+        .constant(cb_constant)
+    );
+
+    // BR Instruction Decoder
     wire [32:0] br_controlword;
     wire [63:0] br_constant;
 
+    BR_decoder br(
+        .I(instruction),
+        .state(state),
+        .status(status),
+        .cw_IW(br_controlword),
+        .K(br_constant)
+    );
+
+    // Choose which branch format is correct
     wire [32:0] branch_controlword;
     wire [63:0] branch_constant;
 
