@@ -29,8 +29,8 @@ module IW_decoder_MOVK (I, state, status, cw_IW);
     // 33 in total
     output [32:0] cw_IW;
 
-    wire zf_immediate = ( sh_16[1] == 1'b1 ( sh_16[0] == 1'b1 ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) ? : ( sh_16[0] == 1'b1 ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
-    wire [63:0] bit_mask = ( sh_16[1] == 1'b1 ( sh_16[0] == 1'b1 ({4'h0,4'hf,4'hf,4'hf}) : ({4'hf, 4'h0,4'hf, 4'hf}) ) ? : ( sh_16[0] == 1'b1 ({4'hf, 4'hf, 4'h0, 4'hf}) : ({4'hf, 4'hf, 4'hf, 4'h0}) ) );
+    wire zf_immediate = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({immediate,4'hf,4'hf,4'hf}) : ({4'hf, immediate,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ? ({4'hf, 4'hf, immediate, 4'hf}) : ({4'hf, 4'hf, 4'hf, immediate}) ) );
+    wire [63:0] bit_mask = ( sh_16[1] == 1'b1 ? ( sh_16[0] == 1'b1 ? ({4'h0,4'hf,4'hf,4'hf}) : ({4'hf, 4'h0,4'hf, 4'hf}) ) : ( sh_16[0] == 1'b1 ({4'hf, 4'hf, 4'h0, 4'hf}) : ({4'hf, 4'hf, 4'hf, 4'h0}) ) );
 
     output [63:0] k = state == 2'b00 ? bit_mask : zf_immediate;
 
