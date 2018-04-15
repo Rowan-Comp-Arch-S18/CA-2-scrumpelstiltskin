@@ -34,6 +34,24 @@ module I_logic(state, status, I, I_logic, k);
        wire [1:0] NS;
 
        assign k = zf;
+		 
+		 assign I_logic = {
+                    alu_enable,
+                    alu_bs,
+                    alu_fs,
+                    databus_register_file_b_enable,
+                    register_sa,
+                    register_sb,
+                    register_wa,
+                    register_w,
+                    databus_ram_enable,
+                    ram_w,
+                    databus_pc_enable,
+                    pc_fs,
+                    pc_input_select,
+                    status_load,
+                    NS
+                };
 
        assign alu_enable = 1'b1;
        assign alu_bs = 1'b1;
