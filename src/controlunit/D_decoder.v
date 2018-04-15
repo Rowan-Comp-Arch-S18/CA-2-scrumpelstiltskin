@@ -1,4 +1,4 @@
-module D_decoder(I, state, status, cw_IW);
+module D_decoder(I, state, status, cw_IW, K);
 
     input [31:0] I;
     input [4:0] status;
@@ -11,7 +11,7 @@ module D_decoder(I, state, status, cw_IW);
 
     assign {op, zf_address, op2, Rn, Rt} = I;
     wire store_load = op[1]; // when op[1]=0, store, when 1 load
-    wire bit_size_8_64 = op[10]; // when op[10]=0, 8bit, when 1 64bit
+    wire bit_size_8_64 = op[10]; // when op[10]=0, 8bit, when 1 64bit NOT SUPPORTED ONLY 64bit WILL WORK
 
 
     // Control Word includes:
@@ -32,8 +32,9 @@ module D_decoder(I, state, status, cw_IW);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
+    output [63:0] K = {55'b0,zf_address};
 
-    wire alu_en = state == 1'b1; // ALU is enabled
+    wire alu_en = state == 1'b1; // ALU is disabled
     wire alu_bs = 1; // K is selected for input to ALU
 
     // ALU FS[4:2]
@@ -41,18 +42,20 @@ module D_decoder(I, state, status, cw_IW);
     // { and   or    add   xor   left right  0   0 }
     // ALU FS[1] ~b
     // ALU FS[0] ~a
-    wire [4:0] alu_fs = (state == 2'b00) ? 5'b000_00 : 5'b001_00; // state 00: ALU selects (A & B), state 01: ALU selects (A | B)
+    wire [4:0] alu_fs = 5'010_00; // ALU adds A+K
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
-    wire [4:0] rf_sa = Rd; // A outputs zero register
+    wire [4:0] rf_sa = Rn; // A outputs zero register
     wire [4:0] rf_sb = 5'd31; // B register address don't care
-    wire [4:0] rf_da = Rd;
-    wire rf_w 1'b1;
-    wire ram_en = 1'b0; // disable ram
-    wire ram_w = 1'b0; // don't write to ram
-    wire [1:0] pc_fs = state == 2'b00 ? 2'b00 : 2'b01; // state 00: PC <= PC, state 01: PC <= PC + 4
+    wire [4:0] rf_da = Rt;
+    wire rf_w =  ~store_load;
+    wire ram_en = 1'b1; // enable ram
+    wire ram_w = store_load;
+    wire [1:0] pc_fs = 2'b01; // PC+4
     wire pc_is = 64'd0; // pc in is don't care
-    wire status_ld = 1'b0; // diable status load
-    wire [1:0] next_state = state == 2'b00 ? 2'b01 : 2'b00;
+    wire status_ld = 1'b0; // disable status load
+    wire [1:0] next_state = 2'b00;
+
+    assign cw_IW = {alu_en, alu_bs, alu_fs, rf_b_en, rf_sa, rf_sb, rf_da, rf_w, ram_en, ram_w, pc_fs, pc_is, status_ld, next_state};
 
 endmodule
