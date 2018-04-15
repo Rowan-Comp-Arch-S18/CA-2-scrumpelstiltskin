@@ -26,7 +26,7 @@ module b_decoder(instruction, state, status, controlword, constant); // double c
 
     wire status_load;
 
-    assign constant = {{37{instruction[25]}, instruction[25:0]}};
+    assign constant = {{37{instruction[25]}}, instruction[25:0]};
 
     assign controlword = {
         databus_alu_enable,

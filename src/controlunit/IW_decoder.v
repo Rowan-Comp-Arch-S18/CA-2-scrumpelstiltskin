@@ -1,5 +1,7 @@
 module IW_decoder(I, state, status, cw_IW, K);
     input [31:0] I;
+    input [1:0] state;
+    input [4:0] status;
 
     // Control Word includes:
     // [1] Databus ALU Enable
@@ -21,11 +23,9 @@ module IW_decoder(I, state, status, cw_IW, K);
     output [32:0] cw_IW;
     output [63:0] K;
 
-    assign K = 64'b0;
-
     wire [32:0] cw_MOVK, cw_MOVZ;
-    IW_decoder_MOVK IW_decoder_MOVK_inst (I, state, cw_MOVK);
-    IW_decoder_MOVZ IW_decoder_MOVZ_inst (I, state, cw_MOVZ);
+    IW_decoder_MOVK IW_decoder_MOVK_inst (I, state, cw_MOVK, K);
+    IW_decoder_MOVZ IW_decoder_MOVZ_inst (I, state, cw_MOVZ, K);
     assign cw_IW = op[8] ? cw_MOVK : cw_MOVZ;
 
 endmodule

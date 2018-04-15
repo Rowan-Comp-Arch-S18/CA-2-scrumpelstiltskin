@@ -66,7 +66,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .in1({33'b0, 64'b0}),
         .in2({i_arith_controlword, i_arith_constant}),
         .in3({33'b0, 64'b0}),
-        .in4({i_logic_controlword, i_logic_constant),
+        .in4({i_logic_controlword, i_logic_constant}),
         .in5({iw_controlword, iw_constant}),
         .in6({r_controlword, r_constant}),
         .in7({33'b0, 64'b0}),
@@ -74,7 +74,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .select(instruction[24:22])
     );
 
-    data_mux.n = 97;
+    defparam data_mux.n = 97;
 
     // B Instruction Decoder
     wire [32:0] b_controlword;
@@ -153,7 +153,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .select(instruction[30:28])
     );
 
-    branch_mux.n = 97;
+    defparam branch_mux.n = 97;
 
     assign {controlword_and_state, constant} = intruction[25] ? {branch_controlword, branch_constant} : {data_controlword, data_constant};
 
