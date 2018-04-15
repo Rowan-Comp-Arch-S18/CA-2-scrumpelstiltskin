@@ -1,5 +1,10 @@
 module IW_decoder(I, state, status, cw_IW, K);
     input [31:0] I;
+    wire [8:0] op;
+    wire [1:0] sh_16;
+    wire [15:0] immediate;
+    wire [4:0] Rd;
+    assign {op, sh_16, immediate, Rd} = I;
 
     // Control Word includes:
     // [1] Databus ALU Enable
