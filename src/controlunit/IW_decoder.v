@@ -1,13 +1,6 @@
 module IW_decoder(I, state, cw_IW);
     input [31:0] I;
 
-    wire [8:0] op;
-    wire [1:0] sh_16;
-    wire [15:0] immediate;
-    wire [4:0] Rd;
-
-    assign {op, sh_16, immediate, Rd} = I;
-
     // Control Word includes:
     // [1] Databus ALU Enable
     // [1] ALU B Select
@@ -26,5 +19,10 @@ module IW_decoder(I, state, cw_IW);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
+
+    wire [32:0] cw_MOVK, cw_MOVZ;
+    IW_decoder_MOVK IW_decoder_MOVK_inst (I, state, cw_MOVK);
+    IW_decoder_MOVZ IW_decoder_MOVZ_inst (I, state, cw_MOVZ);
+    assign cw_IW = op[8] ? cw_MOVK : cw_MOVZ;
 
 }
