@@ -1,4 +1,4 @@
-module IW_decoder_MOVZ.v (I, state, status, cw_IW, k);
+module IW_decoder_MOVZ (I, state, status, cw_IW, k);
 
     input [31:0] I;
     input [4:0] status;
