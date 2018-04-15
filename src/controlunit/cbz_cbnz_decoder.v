@@ -19,6 +19,7 @@ module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // d
 
     wire databus_ram_enable;
     wire ram_write;
+    wire [1:0] next_state;
 
     wire databus_program_counter_enable;
     wire [1:0] program_counter_function_select;
@@ -51,7 +52,7 @@ module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // d
     assign alu_function_select = 5'b00100;
     assign databus_register_file_b_enable = 1'b0;
     assign register_file_select_a = instruction[4:0];
-    assign register_file_select_b = 2'h31;
+    assign register_file_select_b = 5'd31;
     assign register_file_address = 5'b0;
     assign register_file_write = 1'b0;
     assign databus_ram_enable = 1'b0;

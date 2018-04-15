@@ -1,6 +1,6 @@
 module core_testbench();
 
-    wire clock, reset;
+    reg clock, reset;
 
     core core(
         .clock(clock),

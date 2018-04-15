@@ -27,7 +27,8 @@ module BL_decoder(I, state, status, cw_IW, K);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
-    output [63:0] K = {38'b0, se_address};
+    output [63:0] K;
+    assign K = {38'b0, se_address};
 
     wire alu_en = 1'b0; // ALU is disabled
     wire alu_bs = 1'b1; // K is selected for input to ALU
@@ -43,7 +44,7 @@ module BL_decoder(I, state, status, cw_IW, K);
     wire [4:0] rf_sa = 5'd31; // A register address don't care
     wire [4:0] rf_sb = 5'd31; // B register address don't care
     wire [4:0] rf_da = 5'd30;
-    wire rf_w =  ~store_load;
+    wire rf_w = 1'b0;
     wire ram_en = 1'b1; // enable ram
     wire ram_w = 1'b0;
     wire pc_en = 1'b1;

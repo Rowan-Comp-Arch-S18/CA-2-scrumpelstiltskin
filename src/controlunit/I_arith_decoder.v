@@ -52,7 +52,7 @@ module I_arith_decoder(state, status, I, I_a, k);
 			wire status_load;
 			wire [1:0] NS;
 			
-			assign constant = zf;
+			assign k = zf;
 			
 			assign I_a = {
 					alu_enable,

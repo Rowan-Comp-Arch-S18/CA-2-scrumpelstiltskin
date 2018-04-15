@@ -25,6 +25,7 @@ module b_condition_decoder(instruction, state, status, controlword, constant);
     wire program_counter_input_select;
 
     wire status_load;
+    wire [1:0] next_state;
 
     assign constant = {{45{instruction[23]}}, instruction[23:5]};
 

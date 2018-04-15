@@ -33,7 +33,8 @@ module D_decoder(I, state, status, cw_IW, K);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
-    output [63:0] K = {55'b0,zf_address};
+    output [63:0] K ;
+    assign K = {55'b0,zf_address};
 
     wire alu_en = state == 1'b1; // ALU is disabled
     wire alu_bs = 1; // K is selected for input to ALU
@@ -53,7 +54,7 @@ module D_decoder(I, state, status, cw_IW, K);
     wire ram_en = 1'b1; // enable ram
     wire ram_w = store_load;
     wire [1:0] pc_fs = 2'b01; // PC+4
-    wire pc_is = 64'd0; // pc in is don't care
+    wire pc_is = 1'b0; // pc in is don't care
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b00;
 

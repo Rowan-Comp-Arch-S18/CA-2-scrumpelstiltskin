@@ -30,7 +30,8 @@ module BR_decoder(I, state, status, cw_IW, K);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
-    output [63:0] K = 64'b0;
+    output [63:0] K;
+    assign K = 64'b0;
 
     wire alu_en = 1'b0; // ALU is disabled
     wire alu_bs = 1'b0; // B is selected for input to ALU
