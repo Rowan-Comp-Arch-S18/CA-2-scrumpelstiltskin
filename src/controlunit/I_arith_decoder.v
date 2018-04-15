@@ -17,7 +17,7 @@
 	 // [2] Next State
     // 33 in total
 	 
-module I_arith(state, status, I, I_a, k);
+module I_arith_decoder(state, status, I, I_a, k);
 		
 			input[31:0] I;
 			input[4:0] status;

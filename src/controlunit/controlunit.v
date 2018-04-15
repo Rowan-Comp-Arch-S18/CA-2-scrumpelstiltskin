@@ -155,6 +155,6 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
 
     defparam branch_mux.n = 97;
 
-    assign {controlword_and_state, constant} = intruction[25] ? {branch_controlword, branch_constant} : {data_controlword, data_constant};
+    assign {controlword_and_state, constant} = instruction[25] ? {branch_controlword, branch_constant} : {data_controlword, data_constant};
 
 endmodule
