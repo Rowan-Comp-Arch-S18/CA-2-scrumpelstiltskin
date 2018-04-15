@@ -1,6 +1,7 @@
 module BL_decoder(I, state, status, cw_IW, K);
 
     input [31:0] I;
+    input [1:0] state;
     input [4:0] status;
 
     wire [5:0] op;
