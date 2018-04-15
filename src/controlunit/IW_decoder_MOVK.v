@@ -53,6 +53,7 @@ module IW_decoder_MOVK (I, state, status, cw_IW, K);
     wire rf_w = 1'b1;
     wire ram_en = 1'b0; // disable ram
     wire ram_w = 1'b0; // don't write to ram
+    wire pc_en = 1'b0;
     wire [1:0] pc_fs = state == 2'b00 ? 2'b00 : 2'b01; // state 00: PC <= PC, state 01: PC <= PC + 4
     wire pc_is = 64'd0; // pc in is don't care
     wire status_ld = 1'b0; // disable status load
