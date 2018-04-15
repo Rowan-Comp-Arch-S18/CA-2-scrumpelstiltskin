@@ -1,5 +1,5 @@
 
-module b_decoder(instruction, state, status, controlword, constant);
+module cbz_cbnz_decoder(instruction, state, status, controlword, constant);
     
     input [31:0] instruction;
     input [1:0] state;
@@ -26,7 +26,7 @@ module b_decoder(instruction, state, status, controlword, constant);
 
     wire status_load;
 
-    assign constant = {{37{instruction[25]}, instruction[25:0]}};
+    assign constant = {{45{instruction[23]}, instruction[23:5]}};
 
     assign controlword = {
         databus_alu_enable,
@@ -48,10 +48,10 @@ module b_decoder(instruction, state, status, controlword, constant);
 
     assign databus_alu_enable = 1'b0;
     assign alu_b_select = 1'b0;
-    assign alu_function_select = 5'b0;
+    assign alu_function_select = 5'b00100;
     assign databus_register_file_b_enable = 1'b0;
-    assign register_file_select_a = 5'b0;
-    assign register_file_select_b = 5'b0;
+    assign register_file_select_a = instruction[4:0];
+    assign register_file_select_b = 2'h31;
     assign register_file_address = 5'b0;
     assign register_file_write = 1'b0;
     assign databus_ram_enable = 1'b0;
