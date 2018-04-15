@@ -2,6 +2,7 @@ module R_decoder(I, state, status, cw_IW, K);
 
     input [31:0] I;
     input [4:0] status;
+	 input [1:0] state;
 
     wire [10:0] op;
     wire [4:0] Rm;
@@ -29,7 +30,7 @@ module R_decoder(I, state, status, cw_IW, K);
     // [2] next_state
     // 33 in total
     output [32:0] cw_IW;
-    output [63:0] K = {38'b0, se_address};
+    output [63:0] K = {64'b0};
 
     wire alu_en = 1'b0; // ALU is disabled
     wire alu_bs = 1'b0; // B is selected for input to ALU
@@ -39,11 +40,8 @@ module R_decoder(I, state, status, cw_IW, K);
     // { and   or    add   xor   left right  0   0 }
     // ALU FS[1] ~b
     // ALU FS[0] ~a
-    wire [4:0] alu_fs = op[1] ? ({2'b10, ~op[0], 2'b00}) : ({1'b0,
-        (op[9]&op[8]&op[3]) | (op[9]&~op[8]&~[op3]) | (~op[9]&~op[8]&op[3]),
-        (~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]),
-        (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]),
-        1'b0});
+    wire [4:0] alu_fs = op[1] ? ({2'b10, ~op[0], 2'b00}) : 
+	 ({1'b0, (op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]) | (~op[9]&~op[8]&op[3]),(~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]), (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]), 1'b0});
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A register address is Rn

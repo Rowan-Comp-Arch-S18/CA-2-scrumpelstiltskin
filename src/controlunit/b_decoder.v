@@ -25,6 +25,7 @@ module b_decoder(instruction, state, status, controlword, constant); // double c
     wire program_counter_input_select;
 
     wire status_load;
+    wire [1:0] next_state;
 
     assign constant = {{37{instruction[25]}}, instruction[25:0]};
 
