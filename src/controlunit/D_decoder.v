@@ -36,7 +36,7 @@ module D_decoder(I, state, status, cw_IW, K);
     output [63:0] K ;
     assign K = {55'b0,zf_address};
 
-    wire alu_en = state == 1'b1; // ALU is disabled
+    wire alu_en = ~store_load; // ALU is disabled
     wire alu_bs = 1; // K is selected for input to ALU
 
     // ALU FS[4:2]
@@ -51,7 +51,7 @@ module D_decoder(I, state, status, cw_IW, K);
     wire [4:0] rf_sb = 5'd31; // B register address don't care
     wire [4:0] rf_da = Rt;
     wire rf_w =  ~store_load;
-    wire ram_en = 1'b1; // enable ram
+    wire ram_en = store_load; // enable ram
     wire ram_w = store_load;
     wire pc_en = 1'b0;
     wire [1:0] pc_fs = 2'b01; // PC+4
