@@ -11,7 +11,7 @@
 			wire [4:0] Rn;
 			wire [4:0] Rd;
 			
-			assign {op, zf, Rn, Rd} = I;
+			assign {op, zf, Rn, Rd} = I_logic;
 			
 			wire alu_enable;
 			wire alu_bs;
