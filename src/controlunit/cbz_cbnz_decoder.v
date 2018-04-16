@@ -46,7 +46,7 @@ module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // d
         next_state
     };
 
-    wire branching = I[24] ^ status[0];
+    wire branching = instruction[24] ^ status[0];
     assign databus_alu_enable = 1'b0;
     assign alu_b_select = 1'b0;
     assign alu_function_select = 5'b00100;
