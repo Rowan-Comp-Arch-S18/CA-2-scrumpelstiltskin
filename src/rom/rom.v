@@ -1,7 +1,7 @@
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 module rom_case(out, address);
 output reg [31:0] out;
-input  [15:0] address; // address- 16 deep memory  
+input  [15:0] address; // address- 16 deep memory
 always @(address) begin
     case (address)
         16'h0000:  out = 32'b11010010100000000000000000100001; // MOVZ X1, 1
@@ -33,26 +33,26 @@ C code for above asm:
 X1 = 1;
 X2 = 2;
 while(1) {
-	X4 = X1 + X2;
-	M[16] = X4;
-	X5 = M[16];
-	IncDec();
-	if(X2 == 0) {
-		break;
-	}
+    X4 = X1 + X2;
+    M[16] = X4;
+    X5 = M[16];
+    IncDec();
+    if(X2 == 0) {
+        break;
+    }
 }
 if(X1 != 0) {
-	if(X1 > X2) {
-		M[8] = X1;
-	}
+    if(X1 > X2) {
+        M[8] = X1;
+    }
 }
 X6 = M[8]
 while(1){
-	X7 = X7 ^ 1;
+    X7 = X7 ^ 1;
 }
 
 void IncDec(void) {
-	X1 = X1 + 1;
-	X2 = X2 - 1
+    X1 = X1 + 1;
+    X2 = X2 - 1
 }
 */
