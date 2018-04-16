@@ -118,8 +118,8 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
     // Invert the RAM clock so it take one cycle to read ram
 
     ram ram(
-        .address(address_bus[15:3]),
-        .clock(clock),
+        .address(address_bus[12:0]),
+        .clock(~clock),
         .in(data_bus),
         .out(ram_out),
         .write(ram_write)

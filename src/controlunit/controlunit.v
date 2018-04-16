@@ -13,6 +13,10 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
 
     reg [1:0] state;
 
+    initial begin
+        state <= 2'b0;
+    end
+
     always @ (posedge clock or posedge reset) begin
         if (reset) begin
             state <= 2'b0;
@@ -171,7 +175,7 @@ module controlunit(instruction, controlword, constant, status, clock, reset);
         .in3({33'b0, 64'b0}),
         .in4({bl_controlword, bl_constant}),
         .in5({cb_controlword, cb_constant}),
-        .in6({bcond_controlword, br_constant}),
+        .in6({br_controlword, br_constant}),
         .in7({33'b0, 64'b0}),
         .out({branch_controlword, branch_constant}),
         .select(instruction[31:29])

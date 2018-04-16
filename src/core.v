@@ -27,7 +27,7 @@ module core(clock, reset);
     );
 
     rom_case rom(
-        .address(program_count),
+        .address(program_count >> 2),
         .out(instruction)
     );
 
