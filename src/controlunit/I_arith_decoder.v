@@ -76,7 +76,7 @@ module I_arith_decoder(state, status, I, I_a, k);
                 assign alu_bs = 1'b1;
     //   000   001   010   011   100   101  110 111
     // { and   or    add   xor   left right  0   0 }
-                assign alu_fs = I[8] ? 5'b01010 : 5'b01000; // bit 9 1 = sub, 0 = add
+                assign alu_fs = op[8] ? 5'b01010 : 5'b01000; // bit 9 1 = sub, 0 = add
                 assign databus_register_file_b_enable = 1'b0;
                 assign register_sa = Rn;
                 assign register_sb = 5'b00000;
