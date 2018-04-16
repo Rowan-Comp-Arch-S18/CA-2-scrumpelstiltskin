@@ -129,7 +129,7 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
     wire [63:0] program_counter_out;
     wire [63:0] program_counter_out_next;
 
-    assign program_counter_in = program_counter_input_select ? register_file_out_a : immediate;
+    assign program_counter_in = program_counter_input_select ? immediate : register_file_out_a;
 
     program_counter pc(
         .ps(program_counter_function_select),
