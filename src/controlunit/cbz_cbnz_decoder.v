@@ -1,6 +1,5 @@
-
 module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // double check if correct
-    
+
     input [31:0] instruction;
     input [1:0] state;
     input [4:0] status;
@@ -47,6 +46,7 @@ module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // d
         next_state
     };
 
+    wire branching = I[24] ^ status[0];
     assign databus_alu_enable = 1'b0;
     assign alu_b_select = 1'b0;
     assign alu_function_select = 5'b00100;
@@ -58,7 +58,7 @@ module cbz_cbnz_decoder(instruction, state, status, controlword, constant); // d
     assign databus_ram_enable = 1'b0;
     assign ram_write = 1'b0;
     assign databus_program_counter_enable = 1'b1;
-    assign program_counter_function_select = 2'b11;
+    assign program_counter_function_select = branching ? 2'b11 : 2'b01;
     assign program_counter_input_select = 1'b1;
     assign status_load = 1'b0;
     assign next_state = 2'b00;
