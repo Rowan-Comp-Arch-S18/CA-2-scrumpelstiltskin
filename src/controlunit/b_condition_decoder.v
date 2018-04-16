@@ -47,6 +47,26 @@ module b_condition_decoder(instruction, state, status, controlword, constant);
         next_state
     };
 
+    wire z, c, n, v, i;
+
+    assign {z, c, n, v} = status[4:1];
+    assign i = instruction[0];
+
+    wire branch;
+
+    mux_8 condition_mux(
+        .in0(z),
+        .in1(c),
+        .in2(n),
+        .in3(v),
+        .in4(c & ~z),
+        .in5(n ^ v),
+        .in6((n ^ v) ^ ~z),
+        .in7(i),
+        .out(branch),
+        .select(instruction[3:1])
+    );
+
     assign databus_alu_enable = 1'b0;
     assign alu_b_select = 1'b0;
     assign alu_function_select = 5'b0;
@@ -58,7 +78,8 @@ module b_condition_decoder(instruction, state, status, controlword, constant);
     assign databus_ram_enable = 1'b0;
     assign ram_write = 1'b0;
     assign databus_program_counter_enable = 1'b1;
-    assign program_counter_function_select = 2'b11;
+    assign program_counter_function_select[0] = 1'b1;
+    assign program_counter_function_select[1] = branch ^ i;
     assign program_counter_input_select = 1'b1;
     assign status_load = 1'b0;
     assign next_state = 2'b00;
