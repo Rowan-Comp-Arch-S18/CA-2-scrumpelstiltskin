@@ -49,7 +49,7 @@ module BL_decoder(I, state, status, cw_IW, K);
     wire ram_w = 1'b0;
     wire pc_en = 1'b1;
     wire [1:0] pc_fs = 2'b11; // PC+4*pc_in+4
-    wire pc_is = 1'b0; // pc in is sign extended address
+    wire pc_is = 1'b1; // pc in is sign extended address
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b00;
 
