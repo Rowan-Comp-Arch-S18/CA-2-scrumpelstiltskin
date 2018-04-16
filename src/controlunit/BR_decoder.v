@@ -52,7 +52,7 @@ module BR_decoder(I, state, status, cw_IW, K);
     wire ram_w = 1'b0;
     wire pc_en = 1'b1;
     wire [1:0] pc_fs = 2'b10; // PC+pc_in+4
-    wire pc_is = 1'b1; // pc_is is enabled
+    wire pc_is = 1'b0; // pc_is is enabled
     wire status_ld = 1'b0; // disable status load
     wire [1:0] next_state = 2'b00;
 
