@@ -43,11 +43,6 @@ module vga(clk, h_position, v_position, red_in, green_in, blue_in, red_out, gree
     reg h_pixel_enable;
     reg v_pixel_enable;
 
-    // Max at 1200
-    output [10:0] pixel_position;
-
-    assign pixel_position = (h_position >> 4) + ((v_position >> 4) * 40);
-
     initial begin
         //red_out <= 4'b0000;
         //green_out <= 4'b0000;

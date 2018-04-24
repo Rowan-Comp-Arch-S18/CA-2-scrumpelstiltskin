@@ -1,4 +1,4 @@
-module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync, v_sync, clock, reset);
+module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync, v_sync, clock, reset, led);
 
     // CHANGE THESE
     parameter VRAM_START_ADDRESS = 63'h30002;
@@ -10,7 +10,9 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
     input read, write;
     input clock, reset;
 
-    tri [63:0] data;
+    input [63:0] data;
+
+    output [9:0] led;
 
     output [3:0] red_out, green_out, blue_out;
     output h_sync, v_sync;
@@ -23,9 +25,9 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
 
     always @ (posedge clock) begin
         if (reset) begin
-            fg_color <= 12'b0;
+            fg_color <= 12'hFFF;
         end else if (fg_detect & write) begin
-            fg_color <= data;
+            fg_color <= data[11:0];
         end
     end
 
@@ -33,9 +35,9 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
 
     always @ (posedge clock) begin
         if (reset) begin
-            bg_color <= 12'b0;
+            bg_color <= 12'h000;
         end else if (bg_detect & write) begin
-            bg_color <= data;
+            bg_color <= data[11:0];
         end
     end
 
@@ -46,17 +48,24 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
     assign vga_address = vga_hpos[10:3] + vga_vpos[9:3]*80;
 
     wire [7:0] vga_character;
+
+    assign led[7:0] = vga_character[7:0];
+    assign led[9] = vram_detect;
+    assign led[8] = write;
+
     wire vga_pixel;
 
     wire [7:0] vram_out;
 
     vram vram(
         .address({63{vram_detect}} & (address - VRAM_START_ADDRESS)),
-        .in(vram_detect & write),
-        .wriate(vram_detect & write),
+        .in(data[11:0]),
+        .write(vram_detect & write),
         .out(vram_out),
-        .address2(vga_address),
-        .out2(vga_character)
+        .address2({51'b0, vga_address}),
+        .write2(1'b0),
+        .out2(vga_character),
+        .clock(clock)
     );
 
     wire [11:0] vga_colors;
@@ -78,8 +87,8 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
 
     character_lookup lookup(
         .character(vga_character),
-        .h_position(hpos[2:0]),
-        .v_position(vpos[2:0]),
+        .h_position(vga_hpos[2:0]),
+        .v_position(vga_vpos[2:0]),
         .pixel(vga_pixel)
     );
 
