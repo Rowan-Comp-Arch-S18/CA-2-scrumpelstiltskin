@@ -1,6 +1,5 @@
 module keyboard_testbench();
 
-
     reg [13:0]address;
     reg PS2_data;
     reg PS2_clk;
@@ -65,7 +64,6 @@ module keyboard_testbench();
         PS2_data <= 1'b0;
         #10
         PS2_data <= 1'b1;
-
     end
 
     always begin
@@ -77,6 +75,5 @@ module keyboard_testbench();
         #10
         PS2_clk <= ~PS2_clk;
     end
-
 
 endmodule

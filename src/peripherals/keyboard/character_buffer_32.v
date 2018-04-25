@@ -2,6 +2,8 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
     input read;
     input system_clk;
     input r;
+    input PS2_clk;
+    input PS2_data;
     output [7:0] out;
 
     reg [4:0] first_addr, last_addr;
