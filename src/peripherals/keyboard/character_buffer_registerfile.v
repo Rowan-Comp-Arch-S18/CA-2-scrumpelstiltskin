@@ -50,7 +50,7 @@ module character_buffer_registerfile(out_a, out_b, select_a, select_b, data_in, 
     wire [63:0] register_out30;
     wire [63:0] register_out31;
 
-    assign register_out00 = 63'd0;
+    register reg00 (register_out00, data_in, load_enable[00], reset, clock);
     register reg01 (register_out01, data_in, load_enable[01], reset, clock);
     register reg02 (register_out02, data_in, load_enable[02], reset, clock);
     register reg03 (register_out03, data_in, load_enable[03], reset, clock);

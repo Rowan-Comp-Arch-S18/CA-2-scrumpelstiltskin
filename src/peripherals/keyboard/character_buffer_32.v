@@ -1,6 +1,6 @@
-module character_buffer_32(PS2_data, PS2_clk, system_clk, read, clk, reset, out);
+module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
     input read;
-    input clk;
+    input system_clk;
     input r
     output [7:0] out;
 
@@ -25,7 +25,7 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, clk, reset, out)
         input_counter <= 4'b0;
         write <= 1'b0;
         first_addr <= 5'b0;
-        last_addr <= 5'b1;
+        last_addr <= 5'b0;
     end
 
     always @(posedge clk or posedge reset or posedge PS2_clk or posedge read) begin
@@ -62,7 +62,8 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, clk, reset, out)
 
         if(read) begin
             if(first_addr == 5'b0)
-                first_addr <= first_addr - 5'b1;
+                first_addr <= first_addr + 5'b1;
         end
     end
+
 endmodule
