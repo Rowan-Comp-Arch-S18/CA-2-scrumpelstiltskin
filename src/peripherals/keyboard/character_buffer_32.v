@@ -3,8 +3,8 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
     input system_clk;
     input PS2_clk;
     input PS2_data;
-	 input reset;
-	 
+    input reset;
+
     output [7:0] out;
 
     reg [4:0] first_addr, last_addr;
@@ -44,9 +44,10 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
 
             end
             else if (input_counter == 4'd10) begin
-                if(PS2_data != 1'b1)
+                if(PS2_data != 1'b1) begin
                     err <= 1'b1;
-                write <= 1'b1;
+                    write <= 1'b1;
+                end
             end
             else if (input_counter == 4'd9) begin
                     err <= ~(input_character_buffer[7] ^ input_character_buffer[6] ^ input_character_buffer[5] ^ input_character_buffer[4] ^ input_character_buffer[3] ^ input_character_buffer[2] ^ input_character_buffer[1] ^ input_character_buffer[0]) == PS2_data;
@@ -55,17 +56,17 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
                 input_character_buffer <= input_character_buffer >> 1;
                 input_character_buffer <= input_character_buffer + {PS2_data, 9'b0};
             end
-        end
 
-        if(err) begin
-            input_counter <= 4'b0;
-            write <= 1'b0;
-            err <= 1'b0;
-        end
+            if(err) begin
+                input_counter <= 4'b0;
+                write <= 1'b0;
+                err <= 1'b0;
+            end
 
-        if(read) begin
-            if(first_addr == 5'b0)
-                first_addr <= first_addr + 5'b1;
+            if(read) begin
+                if(first_addr == 5'b0)
+                    first_addr <= first_addr + 5'b1;
+            end
         end
     end
 
