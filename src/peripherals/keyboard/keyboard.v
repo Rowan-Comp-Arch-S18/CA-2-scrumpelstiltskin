@@ -8,6 +8,8 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
 
     parameter VRAM_ADDRESS = 14'h3fff;
     output [63:0] data;
+
+    wire [63:0] out;
     assign data = (address==VRAM_ADDRESS ? out : 14'bz);
 
     character_buffer_32 char_buffer (
@@ -15,5 +17,6 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
         .PS2_clk(PS2_clk),
         .system_clk(system_clk),
         .read(1'b1),
+        .out(out)
     );
 endmodule
