@@ -81,7 +81,7 @@ module character_buffer_registerfile(out_a, out_b, select_a, select_b, data_in, 
     register reg28 (register_out28, data_in, load_enable[28], reset, clock);
     register reg29 (register_out29, data_in, load_enable[29], reset, clock);
     register reg30 (register_out30, data_in, load_enable[30], reset, clock);
-    register reg31 (register_out30, data_in, load_enable[31], reset, clock);
+    register reg31 (register_out31, data_in, load_enable[31], reset, clock);
 
     defparam reg00.n = 64;
     defparam reg01.n = 64;

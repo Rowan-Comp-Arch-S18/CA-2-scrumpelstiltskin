@@ -17,7 +17,7 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
         .out_b(),
         .select_a(first_addr),
         .select_b(last_addr),
-        .data_in(input_buffer),
+        .data_in(input_character_buffer),
         .address(last_addr),
         .write(write),
         .reset(reset),
@@ -25,14 +25,16 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
     );
 
     initial begin
-        input_counter <= 4'b0;
+        input_counter <= 4'd10;
         write <= 1'b0;
         first_addr <= 5'b0;
         last_addr <= 5'b0;
+		  input_character_buffer <= 8'b0;
+		  err <= 1'b0;
     end
 
     always @(posedge system_clk or posedge reset or posedge PS2_clk or posedge read) begin
-        if(!system_clk && !reset && !err && PS2_clk) begin
+        if(PS2_clk) begin
             if(input_counter == 4'b0) begin
                 if(PS2_data != 1'b0)
                     err <= 4'b0;
@@ -43,7 +45,7 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
                 end
 
             end
-            else if (input_counter == 4'd10) begin
+            else if (input_counter >= 4'd10) begin
                 if(PS2_data != 1'b1)
                     err <= 1'b1;
                 write <= 1'b1;
@@ -53,20 +55,22 @@ module character_buffer_32(PS2_data, PS2_clk, system_clk, read, reset, out);
             end
             else begin
                 input_character_buffer <= input_character_buffer >> 1;
-                input_character_buffer <= input_character_buffer + {PS2_data, 9'b0};
+                input_character_buffer <= input_character_buffer + {PS2_data, 7'b0};
             end
-        end
 
-        if(err) begin
-            input_counter <= 4'b0;
-            write <= 1'b0;
+			if(err) begin
+					input_counter <= 4'b0;
+						write <= 1'b0;
             err <= 1'b0;
-        end
+			end
+			else
+				input_counter <= input_counter + 4'b1;
 
-        if(read) begin
-            if(first_addr == 5'b0)
-                first_addr <= first_addr + 5'b1;
-        end
+			if(read) begin
+					if(first_addr == 5'b0)
+						first_addr <= first_addr + 5'b1;
+			end
+		  end
     end
 
 endmodule
