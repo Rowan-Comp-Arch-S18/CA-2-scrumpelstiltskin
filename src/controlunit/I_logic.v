@@ -54,13 +54,15 @@ module I_logic(state, status, I, I_logic, k);
     };
 
     assign alu_enable = 1'b1;
-    assign alu_bs = 1'b1;
+    //assign alu_bs = 1'b1;
+    assign alu_bs = I[28];
     //   000   001   010   011   100   101  110 111
     // { and   or    add   xor   left right  0   0 }
     assign alu_fs = {1'b0,op[9:8],2'b00 }; // bit 9:8 is the determine the function
     assign databus_register_file_b_enable = 1'b0;
     assign register_sa = Rn;
-    assign register_sb = 5'b00000;
+    //assign register_sb = 5'b00000;
+    assign register_sb = I[20:16];
     assign register_wa = Rd;
     assign register_w = 1'b1;
     assign databus_ram_enable = 1'b0;

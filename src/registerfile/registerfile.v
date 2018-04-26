@@ -1,4 +1,4 @@
-module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, reset, clock);
+module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, reset, clock, r0, r1, r2, r3, r4, r5, r6, r7);
     output [63:0] out_a;
     output [63:0] out_b;
 
@@ -12,6 +12,8 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
 
     wire [31:0] address_select;
     wire [31:0] load_enable;
+
+    output [15:0] r0, r1, r2, r3, r4, r5, r6, r7;
 
     decoder write_decoder (address, address_select);
 
@@ -49,6 +51,15 @@ module registerfile(out_a, out_b, select_a, select_b, data_in, address, write, r
     wire [63:0] register_out29;
     wire [63:0] register_out30;
     wire [63:0] register_out31;
+
+    assign r0 = register_out00[15:0];
+    assign r1 = register_out01[15:0];
+    assign r2 = register_out02[15:0];
+    assign r3 = register_out03[15:0];
+    assign r4 = register_out04[15:0];
+    assign r5 = register_out05[15:0];
+    assign r6 = register_out06[15:0];
+    assign r7 = register_out07[15:0];
 
     register reg00 (register_out00, data_in, load_enable[00], reset, clock);
     register reg01 (register_out01, data_in, load_enable[01], reset, clock);
