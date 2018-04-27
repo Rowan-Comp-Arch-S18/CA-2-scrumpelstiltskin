@@ -22,7 +22,7 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_charac
         input_error <= 1'b0;
         num_of_characters_in_buffer <= 6'b0;
 
-        for(int i = 0; i < 64; i = i + 1) begin
+        for(integer i = 0; i < 64; i = i + 1) begin
             character_buffer[i] <= 8'b0;
         end
 
@@ -66,7 +66,7 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_charac
     end
 
     always @(negedge read) begin
-        for (int i = 0; i < num_of_characters_in_buffer; i <= i + 1) begin
+        for (integer i = 0; i < num_of_characters_in_buffer; i <= i + 1) begin
             character_buffer[i] <= character_buffer[i+1];
         end
         num_of_characters_in_buffer <= num_of_characters_in_buffer - 5'b1;
