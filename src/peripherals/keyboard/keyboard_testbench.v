@@ -12,11 +12,11 @@ module keyboard_testbench();
     keyboard dut00(address, PS2_data, PS2_clk, system_clk, data, reset);
 
     initial begin
-        address <= 14'b0;
+        address <= 14'h3fff;
         reset <= 1'b0;
         system_clk <= 1'b1;
         PS2_clk <= 1'b0;
-		  PS2_clk <= 1'b0;
+        PS2_clk <= 1'b0;
 
         #10
         PS2_data <= 1'b0;
@@ -65,9 +65,8 @@ module keyboard_testbench();
         PS2_data <= 1'b0;
         #10
         PS2_data <= 1'b1;
-		   
-		  #5
-		  $stop;
+          #5
+          $stop;
     end
 
     always begin
