@@ -42,7 +42,15 @@ module R_decoder(I, state, status, cw_IW, K);
     // ALU FS[1] ~b
     // ALU FS[0] ~a
     wire [4:0] alu_fs = op[1] ? ({2'b10, ~op[0], 2'b00}) :
-     ({1'b0, (op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]) | (~op[9]&~op[8]&op[3]),(~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]), (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]), 1'b0});
+     (
+        {
+            1'b0,
+            op[3] | (op[9]&op[8]),
+            (~op[9]&op[8]&op[3]) | (op[9]&~op[8]&~op[3]),
+            (op[9]&~op[8]&op[3]) | (op[9]&op[8]&op[3]),
+            1'b0
+        }
+     );
 
     wire rf_b_en = 1'b0; // B should not be enabled on data bus
     wire [4:0] rf_sa = Rn; // A register address is Rn
