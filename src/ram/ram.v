@@ -6,7 +6,7 @@ module ram(address, clock, in, write, out);
 
     output reg [63:0] out;
 
-    parameter memory_words = 8064; //needs to actually be more like 6000
+    parameter memory_words = 5000; //needs to actually be more like 6000
 
     reg [63:0] mem [0:memory_words-1];
 

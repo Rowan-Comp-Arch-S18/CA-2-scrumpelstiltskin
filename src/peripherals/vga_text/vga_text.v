@@ -1,14 +1,14 @@
-module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync, v_sync, clock, reset, led);
+module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync, v_sync, clock, vga_clock, reset, led);
 
     // CHANGE THESE
-    parameter VRAM_START_ADDRESS = 63'h30002;
+    parameter VRAM_START_ADDRESS = 63'h3002;
     parameter VRAM_BYTES = 13'd7200;
-    parameter FG_ADDRESS = 63'h30001;
-    parameter BG_ADDRESS = 63'h30000;
+    parameter FG_ADDRESS = 63'h3001;
+    parameter BG_ADDRESS = 63'h3000;
 
     input [63:0] address;
     input read, write;
-    input clock, reset;
+    input clock, vga_clock, reset;
 
     input [63:0] data;
 
@@ -82,7 +82,7 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
         .blue_out(blue_out),
         .h_sync_out(h_sync),
         .v_sync_out(v_sync),
-        .clk(clock)
+        .clk(vga_clock)
     );
 
     character_lookup lookup(

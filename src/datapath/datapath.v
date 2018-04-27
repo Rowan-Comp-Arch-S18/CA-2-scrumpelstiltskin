@@ -1,4 +1,6 @@
-module datapath(controlword, immediate, clock, reset, status, program_count);
+module datapath(controlword, immediate, clock, reset, status, program_count, data_bus, address_bus, read, write, r0, r1, r2, r3, r4, r5, r6, r7);
+
+    parameter RAM_UPPER_ADDRESS = 63'd5000;
 
     // Control Word includes:
     // [1] Databus ALU Enable
@@ -23,9 +25,11 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
     input reset;
 
     // Register status
-
     output [4:0] status;
     output [63:0] program_count;
+    output read, write;
+
+    output [15:0] r0, r1, r2, r3, r4, r5, r6, r7;
 
     wire databus_alu_enable;
     wire alu_b_select;
@@ -63,8 +67,11 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
         status_load
     } = controlword;
 
-    wire [63:0] data_bus;
-    wire [63:0] address_bus;
+    assign write = ram_write;
+    assign read = databus_ram_enable;
+
+    inout [63:0] data_bus;
+    output [63:0] address_bus;
 
     wire [63:0] register_file_out_a;
     wire [63:0] register_file_out_b;
@@ -81,7 +88,15 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
         .address(register_file_address),
         .write(register_file_write),
         .reset(reset),
-        .clock(clock)
+        .clock(clock),
+        .r0(r0),
+        .r1(r1),
+        .r2(r2),
+        .r3(r3),
+        .r4(r4),
+        .r5(r5),
+        .r6(r6),
+        .r7(r7)
     );
 
     wire [63:0] alu_out;
@@ -115,6 +130,8 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
 
     wire [63:0] ram_out;
 
+    wire ram_detect = address_bus <= RAM_UPPER_ADDRESS ? 1'b1 : 1'b0;
+
     // Invert the RAM clock so it take one cycle to read ram
 
     ram ram(
@@ -122,7 +139,7 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
         .clock(~clock),
         .in(data_bus),
         .out(ram_out),
-        .write(ram_write)
+        .write(ram_detect && ram_write)
     );
 
     wire [63:0] program_counter_in;
@@ -144,7 +161,7 @@ module datapath(controlword, immediate, clock, reset, status, program_count);
 
     assign data_bus = databus_alu_enable ? alu_out : 64'bz;
     assign data_bus = databus_register_file_b_enable ? register_file_out_b : 64'bz;
-    assign data_bus = databus_ram_enable ? ram_out : 64'bz;
+    assign data_bus = (databus_ram_enable && ram_detect) ? ram_out : 64'bz;
     assign data_bus = databus_program_counter_enable ? program_counter_out_next : 64'bz;
 
 endmodule
