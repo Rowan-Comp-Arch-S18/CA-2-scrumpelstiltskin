@@ -1,31 +1,26 @@
-module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_character);
+module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
 
-    input [13:0]address;
+    input [13:0] address;
     input PS2_data;
     input PS2_clk;
     input system_clk;
     input reset;
-    input read_character;
 
     parameter VRAM_ADDRESS = 14'h3fff;
     output [63:0] data;
 
-    assign data = (address==VRAM_ADDRESS ? {62'b0, character_buffer[0]} : 64'b0);
+    assign data = (address==VRAM_ADDRESS ? {56'b0, active_character} : 64'bz);
 
     reg [3:0] input_counter;
-    reg [5:0] num_of_characters_in_buffer;
-    reg [7:0] character_buffer [63:0];
+    reg [7:0] active_character;
+    reg [7:0] character_buffer;
     reg input_error;
 
     initial begin
         input_counter <= 4'b0;
         input_error <= 1'b0;
-        num_of_characters_in_buffer <= 6'b0;
-
-        for(integer i = 0; i < 64; i = i + 1) begin
-            character_buffer[i] <= 8'b0;
-        end
-
+        active_character <= 8'b0;
+        character_buffer <= 8'b0;
     end
 
     always @(posedge PS2_clk) begin
@@ -36,11 +31,8 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_charac
                 end
             end
             else if(input_counter == 4'h9) begin
-                if (PS2_data != odd_pairity(character_buffer[num_of_characters_in_buffer][input_counter - 4'b1])) begin
+                if (PS2_data != odd_pairity(character_buffer)) begin
                     input_error <= 1'b1;
-                end
-                else begin
-                    character_buffer[num_of_characters_in_buffer][input_counter - 4'b1] <= PS2_data;
                 end
             end
             else if(input_counter == 4'ha) begin
@@ -48,11 +40,12 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_charac
                     input_error <= 1'b1;
                 end
                 else begin
-                    num_of_characters_in_buffer <= num_of_characters_in_buffer + 5'b1;
+                    input_counter <= 4'b0;
+                    active_character <= character_buffer;
                 end
             end
             else begin
-                character_buffer[num_of_characters_in_buffer][input_counter - 4'b1] <= PS2_data;
+                character_buffer[input_counter] <= PS2_data;
             end
 
             if(!input_error) begin
@@ -63,13 +56,6 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read_charac
                 input_error <= 1'b0;
             end
         end
-    end
-
-    always @(negedge read) begin
-        for (integer i = 0; i < num_of_characters_in_buffer; i <= i + 1) begin
-            character_buffer[i] <= character_buffer[i+1];
-        end
-        num_of_characters_in_buffer <= num_of_characters_in_buffer - 5'b1;
     end
 
 endmodule
