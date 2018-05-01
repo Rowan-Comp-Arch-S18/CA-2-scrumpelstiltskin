@@ -1,0 +1,21 @@
+X29 -> Status base address
+X28 -> VRAM base address
+
+X0 -> Current bg R
+X1 -> Current bg G
+X2 -> Current bg B
+
+X3 -> Current fg R
+X4 -> Current fg G
+X5 -> Current fg B
+
+X9 -> Current VRAM pos
+X10 -> Current character
+
+X8 -> Check if at end of character range
+
+X6 -> Combined fg color
+X7 -> Combined bg color
+
+X11 -> RGB State
+

@@ -22,22 +22,24 @@ module vga_text(address, data, read, write, red_out, green_out, blue_out, h_sync
     wire bg_detect = address == BG_ADDRESS ? 1'b1 : 1'b0;
 
     reg [11:0] fg_color;
+    reg [11:0] bg_color;
+
+    initial begin
+        fg_color <= 12'hFFF;
+        bg_color <= 12'h000;
+    end
 
     always @ (posedge clock) begin
         if (reset) begin
             fg_color <= 12'hFFF;
-        end else if (fg_detect & write) begin
-            fg_color <= data[11:0];
-        end
-    end
-
-    reg [11:0] bg_color;
-
-    always @ (posedge clock) begin
-        if (reset) begin
             bg_color <= 12'h000;
-        end else if (bg_detect & write) begin
-            bg_color <= data[11:0];
+        end else if (write) begin
+            if (fg_detect) begin
+                fg_color <= data[11:0];
+            end
+            if (bg_detect) begin
+                bg_color <= data[11:0];
+            end
         end
     end
 
