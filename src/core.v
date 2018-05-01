@@ -65,7 +65,7 @@ module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, 
         .blue_out(vga_blue_out),
         .h_sync(vga_h_sync),
         .v_sync(vga_v_sync),
-        .clock(core_clock),
+        .clock(clock),
         .vga_clock(vga_clock),
         .reset(reset)
     );

@@ -225,7 +225,7 @@ module character_lookup(character, h_position, v_position, pixel);
                 character_data[15:08] <= 8'b00111000;
                 character_data[23:16] <= 8'b01000100;
                 character_data[31:24] <= 8'b00011000;
-                character_data[39:32] <= 8'b01000000;
+                character_data[39:32] <= 8'b00100000;
                 character_data[47:40] <= 8'b01111100;
                 character_data[55:48] <= 8'b00000000;
                 character_data[63:56] <= 8'b00000000;
@@ -347,7 +347,7 @@ module character_lookup(character, h_position, v_position, pixel);
                 character_data[23:16] <= 8'b01111100;
                 character_data[31:24] <= 8'b00000000;
                 character_data[39:32] <= 8'b01111100;
-                character_data[47:40] <= 8'b01000000;
+                character_data[47:40] <= 8'b00000000;
                 character_data[55:48] <= 8'b00000000;
                 character_data[63:56] <= 8'b00000000;
             end

@@ -1,10 +1,10 @@
-module main(CLOCK_50, VGA_R, VGA_G, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1, HEX2);
+module main(CLOCK_50, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1, HEX2);
 
     input CLOCK_50;
     input [2:0] BUTTON;
 
     output [9:0] LEDG;
-    output [3:0] VGA_R, VGA_G;
+    output [3:0] VGA_R, VGA_G, VGA_B;
     output VGA_HS, VGA_VS;
 
     output [6:0] HEX0, HEX1, HEX2;
@@ -13,14 +13,15 @@ module main(CLOCK_50, VGA_R, VGA_G, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1
     inout [31:0] GPIO1_D;
 
     assign LEDG[3:0] = VGA_R;
-    assign LEDG[7:4] = VGA_R;
+    assign LEDG[7:4] = VGA_G;
     assign LEDG[8] = VGA_HS;
     assign LEDG[9] = BUTTON[0];
 
     wire core_clock;
 
-    //pll pll(CLOCK_50, core_clock);
-    assign core_clock = ~BUTTON[2];
+    pll pll(CLOCK_50, core_clock);
+    //assign core_clock = ~BUTTON[2];
+    //assign core_clock = CLOCK_50;
 
     wire [15:0] r0, r1, r2, r3, r4, r5, r6, r7;
     wire [63:0] data_bus;
@@ -34,6 +35,7 @@ module main(CLOCK_50, VGA_R, VGA_G, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1
         .reset(~BUTTON[0]),
         .vga_red_out(VGA_R),
         .vga_green_out(VGA_G),
+        .vga_blue_out(VGA_B),
         .vga_h_sync(VGA_HS),
         .vga_v_sync(VGA_VS),
         .vga_clock(CLOCK_50),

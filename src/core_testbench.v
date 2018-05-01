@@ -4,6 +4,7 @@ module core_testbench();
 
     core core(
         .clock(clock),
+        .vga_clock(clock),
         .reset(reset)
     );
 
