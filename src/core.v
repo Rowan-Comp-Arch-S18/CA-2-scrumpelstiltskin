@@ -76,7 +76,8 @@ module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, 
 		.PS2_clk(),
 		.system_clk(clock),
 		.data(data_bus),
-		.reset(reset);
+		.reset(reset),
+	.read(read);
 
 endmodule
 
