@@ -14,7 +14,7 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
     reg [7:0] character_buffer;
     reg input_error;
 
-    assign data = address == VRAM_ADDRESS ? {56'b0, active_character} : 64'z;
+    assign data = address == VRAM_ADDRESS ? {56'b0, active_character} : 64'bz;
 
 function odd_pairity;
     input [7:0] in;

@@ -1,7 +1,9 @@
-module main(CLOCK_50, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1, HEX2);
+module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1, HEX2);
 
     input CLOCK_50;
     input [2:0] BUTTON;
+
+    input PS2_KBDAT, PS2_KBCLK;
 
     output [9:0] LEDG;
     output [3:0] VGA_R, VGA_G, VGA_B;
@@ -33,6 +35,8 @@ module main(CLOCK_50, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D
     core core(
         .clock(core_clock),
         .reset(~BUTTON[0]),
+        .ps_kbdata(PS2_KBDAT),
+        .ps_kbclock(PS2_KBCLK),
         .vga_red_out(VGA_R),
         .vga_green_out(VGA_G),
         .vga_blue_out(VGA_B),
