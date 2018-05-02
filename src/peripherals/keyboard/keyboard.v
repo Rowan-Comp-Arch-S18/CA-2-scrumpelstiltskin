@@ -31,8 +31,7 @@ endfunction
         character_buffer <= 8'b0;
     end
 
-    always @(posedge PS2_clk) begin
-        if(PS2_clk) begin
+    always @(negedge PS2_clk) begin
             if(input_counter == 4'b0) begin
                 if(PS2_data != 1'b0) begin
                     input_error <= 1'b1;
@@ -67,6 +66,5 @@ endfunction
                    input_counter <= 4'b0;
                     character_buffer <= 8'b0;
             end
-        end
     end
 endmodule
