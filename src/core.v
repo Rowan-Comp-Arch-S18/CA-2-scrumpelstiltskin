@@ -1,8 +1,10 @@
-module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, vga_v_sync, vga_clock, data_bus, address_bus, read, write, program_count, r0, r1, r2, r3,r4, r5, r6, r7, instruction);
+module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, vga_v_sync, vga_clock, data_bus, address_bus, read, write, program_count, r0, r1, r2, r3,r4, r5, r6, r7, instruction);
 
     input clock, reset;
 
     input vga_clock;
+
+    input ps_kbdata, ps_kbclock;
 
     output [3:0] vga_red_out, vga_green_out, vga_blue_out;
     output vga_h_sync, vga_v_sync;
@@ -69,6 +71,7 @@ module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, 
         .vga_clock(vga_clock),
         .reset(reset)
     );
+<<<<<<< HEAD
 
 	 keyboard keyboard(
 		.address(address_bus),
@@ -78,6 +81,17 @@ module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, 
 		.data(data_bus),
 		.reset(reset),
 	.read(read);
+=======
+
+    keyboard keyboard(
+        .address(address_bus),
+        .PS2_data(ps_kbdata),
+        .PS2_clk(ps_kbclock),
+        .system_clk(clock),
+        .data(data_bus),
+        .reset(reset)
+    );
+>>>>>>> 6b515ad9e5fd3ca6819979550375eba90df9e8f7
 
 endmodule
 
