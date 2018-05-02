@@ -33,39 +33,39 @@ endfunction
     end
 
     always @(negedge PS2_clk) begin
-            if(input_counter == 4'b0) begin
-                if(PS2_data != 1'b0) begin
-                    input_error <= 1'b1;
-                end
+        if(input_counter == 4'b0) begin
+            if(PS2_data != 1'b0) begin
+                input_error <= 1'b1;
             end
-            else if(input_counter == 4'h9) begin
-                if (PS2_data != odd_pairity(character_buffer)) begin
-                    input_error <= 1'b1;
-                end
+        end
+        else if(input_counter == 4'h9) begin
+            if (PS2_data != odd_pairity(character_buffer)) begin
+                input_error <= 1'b1;
             end
-            else if(input_counter == 4'ha) begin
-                if (PS2_data != 1'b1) begin
-                    input_error <= 1'b1;
-                end
-                else begin
-                    input_counter <= 4'b0;
-                    active_character <= character_buffer;
-                end
-            end
-            else begin
-                character_buffer[input_counter] <= PS2_data;
-            end
-
-            if(!input_error) begin
-                input_counter <= input_counter + 4'b1;
+        end
+        else if(input_counter == 4'ha) begin
+            if (PS2_data != 1'b1) begin
+                input_error <= 1'b1;
             end
             else begin
                 input_counter <= 4'b0;
-                input_error <= 1'b0;
+                active_character <= character_buffer;
             end
-            if(input_counter == 4'ha) begin
-                   input_counter <= 4'b0;
-                    character_buffer <= 8'b0;
-            end
+        end
+        else begin
+            character_buffer[input_counter] <= PS2_data;
+        end
+
+        if(!input_error) begin
+            input_counter <= input_counter + 4'b1;
+        end
+        else begin
+            input_counter <= 4'b0;
+            input_error <= 1'b0;
+        end
+        if(input_counter == 4'ha) begin
+               input_counter <= 4'b0;
+                character_buffer <= 8'b0;
+        end
     end
 endmodule
