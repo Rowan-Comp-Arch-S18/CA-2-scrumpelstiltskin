@@ -1,10 +1,11 @@
-module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
+module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
 
     input [13:0] address;
     input PS2_data;
     input PS2_clk;
     input system_clk;
     input reset;
+    input read;
 
     parameter VRAM_ADDRESS = 14'h2500;
     output [63:0] data;
@@ -12,9 +13,12 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset);
     reg [3:0] input_counter;
     reg [7:0] active_character;
     reg [7:0] character_buffer;
+
     reg input_error;
 
-    assign data = address == VRAM_ADDRESS ? {56'b0, active_character} : 64'bz;
+    wire address_detected = ((address == VRAM_ADDRESS) && read);
+
+    assign data = address_detected ? {56'b0, active_character} : 64'bz;
 
 function odd_pairity;
     input [7:0] in;

@@ -29,8 +29,7 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
         .program_count(program_count),
         .data_bus(data_bus),
         .address_bus(address_bus),
-        .read(read),
-        .write(write),
+        .read(read), .write(write),
         .clock(clock),
         .reset(reset),
         .r0(r0),
@@ -71,15 +70,15 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
         .vga_clock(vga_clock),
         .reset(reset)
     );
-
     keyboard keyboard(
         .address(address_bus),
         .PS2_data(ps_kbdata),
         .PS2_clk(ps_kbclock),
         .system_clk(clock),
         .data(data_bus),
-        .reset(reset)
-    );
+        .reset(reset),
+        .read(read)
+       );
 
 endmodule
 
