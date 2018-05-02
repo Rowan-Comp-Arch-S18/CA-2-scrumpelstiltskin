@@ -17,11 +17,14 @@ module keyboard_testbench();
         reset <= 1'b0;
         system_clk <= 1'b1;
         PS2_clk <= 1'b0;
-        PS2_clk <= 1'b0;
+		  
+		  
+        // H
+		  #10
+        PS2_data <= 1'b0;
 
         #20
         PS2_data <= 1'b0;
-
         #20
         PS2_data <= 1'b0;
         #20
@@ -36,15 +39,41 @@ module keyboard_testbench();
         PS2_data <= 1'b0;
         #20
         PS2_data <= 1'b1;
+
+        #20
+        PS2_data <= 1'b0;
+
+        #20
+        PS2_data <= 1'b1;
+		  
+		  // E
+		  #20
+        PS2_data <= 1'b0;
+
+        #20
+        PS2_data <= 1'b1;
+        #20
+        PS2_data <= 1'b0;
+        #20
+        PS2_data <= 1'b1;
+        #20
+        PS2_data <= 1'b0;
+        #20
+        PS2_data <= 1'b0;
+        #20
+        PS2_data <= 1'b1;
+        #20
+        PS2_data <= 1'b1;
+        #20
+        PS2_data <= 1'b0;
+
         #20
         PS2_data <= 1'b0;
 
         #20
         PS2_data <= 1'b1;
 
-        #20
-        PS2_data <= 1'b1;
-
+		  #40
         $stop;
     end
 

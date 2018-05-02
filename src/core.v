@@ -70,6 +70,13 @@ module core(clock, reset, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, 
         .reset(reset)
     );
 
+	 keyboard keyboard(
+		.address(address_bus),
+		.PS2_data(),
+		.PS2_clk(),
+		.system_clk(clock),
+		.data(data_bus),
+		.reset(reset);
 
 endmodule
 
