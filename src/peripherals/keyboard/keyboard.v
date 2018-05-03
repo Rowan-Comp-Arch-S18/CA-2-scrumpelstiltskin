@@ -24,80 +24,82 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
     function [7:0] ps2_to_ASCII;
         input [7:0] in;
         case(in)
-            7'h45:
-                ps2_to_ASCII = 7'd48; // 0
-            7'h16:
-                ps2_to_ASCII = 7'd49; // 1
-            7'h1e:
-                ps2_to_ASCII = 7'd50; // 2
-            7'h26:
-                ps2_to_ASCII = 7'd51; // 3
-            7'h25:
-                ps2_to_ASCII = 7'd52; // 4
-            7'h2e:
-                ps2_to_ASCII = 7'd53; // 5
-            7'h36:
-                ps2_to_ASCII = 7'd54; // 6
-            7'h3d:
-                ps2_to_ASCII = 7'd55; // 7
-            7'h3e:
-                ps2_to_ASCII = 7'd56; // 8
-            7'h46:
-                ps2_to_ASCII = 7'd57; // 9
-            7'h1c:
-                ps2_to_ASCII = 7'd65; // A
-            7'h32:
-                ps2_to_ASCII = 7'd66; // B
-            7'h21:
-                ps2_to_ASCII = 7'd67; // C
-            7'h23:
-                ps2_to_ASCII = 7'd68; // D
-            7'h24:
-                ps2_to_ASCII = 7'd69; // E
-            7'h2b:
-                ps2_to_ASCII = 7'd70; // F
-            7'h34:
-                ps2_to_ASCII = 7'd71; // G
-            7'h33:
-                ps2_to_ASCII = 7'd72; // H
-            7'h43:
-                ps2_to_ASCII = 7'd73; // I
-            7'h3b:
-                ps2_to_ASCII = 7'd74; // J
-            7'h42:
-                ps2_to_ASCII = 7'd75; // K
-            7'h4b:
-                ps2_to_ASCII = 7'd76; // L
-            7'h3a:
-                ps2_to_ASCII = 7'd77; // M
-            7'h31:
-                ps2_to_ASCII = 7'd78; // N
-            7'h44:
-                ps2_to_ASCII = 7'd79; // O
-            7'h4d:
-                ps2_to_ASCII = 7'd80; // P
-            7'h15:
-                ps2_to_ASCII = 7'd81; // Q
-            7'h2d:
-                ps2_to_ASCII = 7'd82; // R
-            7'h1b:
-                ps2_to_ASCII = 7'd83; // S
-            7'h2c:
-                ps2_to_ASCII = 7'd84; // T
-            7'h3c:
-                ps2_to_ASCII = 7'd85; // U
-            7'h2a:
-                ps2_to_ASCII = 7'd86; // V
-            7'h1d:
-                ps2_to_ASCII = 7'd87; // W
-            7'h22:
-                ps2_to_ASCII = 7'd88; // X
-            7'h35:
-                ps2_to_ASCII = 7'd89; // Y
-            7'h1a:
-                ps2_to_ASCII = 7'd90; // Z
+            8'h29:
+                ps2_to_ASCII = 8'd32; // SPACE
+            8'h45:
+                ps2_to_ASCII = 8'd48; // 0
+            8'h16:
+                ps2_to_ASCII = 8'd49; // 1
+            8'h1e:
+                ps2_to_ASCII = 8'd50; // 2
+            8'h26:
+                ps2_to_ASCII = 8'd51; // 3
+            8'h25:
+                ps2_to_ASCII = 8'd52; // 4
+            8'h2e:
+                ps2_to_ASCII = 8'd53; // 5
+            8'h36:
+                ps2_to_ASCII = 8'd54; // 6
+            8'h3d:
+                ps2_to_ASCII = 8'd55; // 7
+            8'h3e:
+                ps2_to_ASCII = 8'd56; // 8
+            8'h46:
+                ps2_to_ASCII = 8'd57; // 9
+            8'h1c:
+                ps2_to_ASCII = 8'd65; // A
+            8'h32:
+                ps2_to_ASCII = 8'd66; // B
+            8'h21:
+                ps2_to_ASCII = 8'd67; // C
+            8'h23:
+                ps2_to_ASCII = 8'd68; // D
+            8'h24:
+                ps2_to_ASCII = 8'd69; // E
+            8'h2b:
+                ps2_to_ASCII = 8'd70; // F
+            8'h34:
+                ps2_to_ASCII = 8'd71; // G
+            8'h33:
+                ps2_to_ASCII = 8'd72; // H
+            8'h43:
+                ps2_to_ASCII = 8'd73; // I
+            8'h3b:
+                ps2_to_ASCII = 8'd74; // J
+            8'h42:
+                ps2_to_ASCII = 8'd75; // K
+            8'h4b:
+                ps2_to_ASCII = 8'd76; // L
+            8'h3a:
+                ps2_to_ASCII = 8'd77; // M
+            8'h31:
+                ps2_to_ASCII = 8'd78; // N
+            8'h44:
+                ps2_to_ASCII = 8'd79; // O
+            8'h4d:
+                ps2_to_ASCII = 8'd80; // P
+            8'h15:
+                ps2_to_ASCII = 8'd81; // Q
+            8'h2d:
+                ps2_to_ASCII = 8'd82; // R
+            8'h1b:
+                ps2_to_ASCII = 8'd83; // S
+            8'h2c:
+                ps2_to_ASCII = 8'd84; // T
+            8'h3c:
+                ps2_to_ASCII = 8'd85; // U
+            8'h2a:
+                ps2_to_ASCII = 8'd86; // V
+            8'h1d:
+                ps2_to_ASCII = 8'd87; // W
+            8'h22:
+                ps2_to_ASCII = 8'd88; // X
+            8'h35:
+                ps2_to_ASCII = 8'd89; // Y
+            8'h1a:
+                ps2_to_ASCII = 8'd90; // Z
             default:
-                ps2_to_ASCII = 7'd63; // ?
+                ps2_to_ASCII = 8'd63; // ?
         endcase
     endfunction
 
