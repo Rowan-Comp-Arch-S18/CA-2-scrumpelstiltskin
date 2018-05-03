@@ -5,7 +5,7 @@ module mouse_ps2(clock, reset, mouse_signal, mouse_clk, address, data, read);
 		input mouse_signal; // should get the data port from mouse
 		input mouse_clk; // Should get the ps2 clock from mouse
 		input read; // cpu reading from me
-		
+		reg [15:0] displayed_number; // value that is increased / decreased value that should be displayed
 			// output reg [6:0] HEX0, HEX1, HEX2, HEX3; // changed to HEX instead of LED_BCD used for stand alone
 			//	output reg [3:0] LED_Act;
 			//	output reg [6:0] LED_out; // data for the first number/ second number/ 3rd/ 4th 
@@ -16,7 +16,7 @@ module mouse_ps2(clock, reset, mouse_signal, mouse_clk, address, data, read);
 			 assign data = address_detected ? {47'b0, displayed_number} : 64'bz;
 		reg [5:0] mouse_bits; // number of bits from the PS2 mouse 
 	
-		reg [15:0] displayed_number; // value that is increased / decreased value that should be displayed
+		
 		reg [3:0] LED_BCD; // Signal for seven seg
 			// Signals for displaying on 7-segment LED 
 		reg [20:0] refresh_counter; // first bits for refresh rate while last 2 bits for for LED on signals
