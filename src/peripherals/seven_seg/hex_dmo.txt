@@ -10,6 +10,4 @@ CBNZ X10, -2
 
 ADDI X3, X3, 1
 
-SUBI X4, X3, 100
-
-CBNZ X4, 
+B -7

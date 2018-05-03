@@ -1,3 +1,25 @@
+// Testing for Seven Seg Increment
+module rom_case(out, address);
+    output reg [31:0] out;
+    input [15:0] address;
+    always @ (address) begin
+        case (address)
+            16'd0: out = 32'b11010010100001000000000000000010;
+            16'd1: out = 32'b11010010100000000000000000000011;
+            16'd2: out = 32'b11111000000000000000000001000011;
+            16'd3: out = 32'b11010010100000000000000000101010;
+            16'd4: out = 32'b11010011011000000110000101001010;
+            16'd5: out = 32'b11010001000000000000010101001010;
+            16'd6: out = 32'b10110101111111111111111111001010;
+            16'd7: out = 32'b10010001000000000000010001100011;
+            16'd8: out = 32'b00010111111111111111111111111001;
+            default: out = 32'hD60003E0; // BR XZR
+        endcase
+    end
+endmodule 
+
+
+
 /*
 // Keyboard test
 module rom_case(out, address);
@@ -158,7 +180,7 @@ module rom_case(out, address);
 
 // Clock speed test
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
-module rom_case(out, address);
+/*module rom_case(out, address);
 	output reg [31:0] out;
 	input  [15:0] address; // address- 16 deep memory  
 	always @(address) begin
