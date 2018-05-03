@@ -50,3 +50,11 @@ module seven_seg_perpherial(data, address, read, write, reset, clock, HEX0, HEX1
     );
 
 endmodule
+
+/*
+SUBI X4, X3, 100
+
+CBNZ X4, 2
+
+MOVZ X3, 0
+*/
