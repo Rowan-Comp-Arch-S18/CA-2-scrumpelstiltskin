@@ -23,82 +23,82 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
 
     function ps2_to_ASCII;
         input [7:0] in;
-        output [7:0] out;
         case(in)
             7'h45:
-                out = 7'd48; // 0
+                ps2_to_ASCII = 7'd48; // 0
             7'h16:
-                out = 7'd49; // 1
+                ps2_to_ASCII = 7'd49; // 1
             7'h1e:
-                out = 7'd50; // 2
+                ps2_to_ASCII = 7'd50; // 2
             7'h26:
-                out = 7'd51; // 3
+                ps2_to_ASCII = 7'd51; // 3
             7'h25:
-                out = 7'd52; // 4
+                ps2_to_ASCII = 7'd52; // 4
             7'h2e:
-                out = 7'd53; // 5
+                ps2_to_ASCII = 7'd53; // 5
             7'h36:
-                out = 7'd54; // 6
+                ps2_to_ASCII = 7'd54; // 6
             7'h3d:
-                out = 7'd55; // 7
+                ps2_to_ASCII = 7'd55; // 7
             7'h3e:
-                out = 7'd56; // 8
+                ps2_to_ASCII = 7'd56; // 8
             7'h46:
-                out = 7'd57; // 9
+                ps2_to_ASCII = 7'd57; // 9
             7'h1c:
-                out = 7'd65; // A
+                ps2_to_ASCII = 7'd65; // A
             7'h32:
-                out = 7'd66; // B
+                ps2_to_ASCII = 7'd66; // B
             7'h21:
-                out = 7'd67; // C
+                ps2_to_ASCII = 7'd67; // C
             7'h23:
-                out = 7'd68; // D
+                ps2_to_ASCII = 7'd68; // D
             7'h24:
-                out = 7'd69; // E
+                ps2_to_ASCII = 7'd69; // E
             7'h2b:
-                out = 7'd70; // F
+                ps2_to_ASCII = 7'd70; // F
             7'h34:
-                out = 7'd71; // G
+                ps2_to_ASCII = 7'd71; // G
             7'h33:
-                out = 7'd72; // H
+                ps2_to_ASCII = 7'd72; // H
             7'h43:
-                out = 7'd73; // I
+                ps2_to_ASCII = 7'd73; // I
             7'h3b:
-                out = 7'd74; // J
+                ps2_to_ASCII = 7'd74; // J
             7'h42:
-                out = 7'd75; // K
+                ps2_to_ASCII = 7'd75; // K
             7'h4b:
-                out = 7'd76; // L
+                ps2_to_ASCII = 7'd76; // L
             7'h3a:
-                out = 7'd77; // M
+                ps2_to_ASCII = 7'd77; // M
             7'h31:
-                out = 7'd78; // N
+                ps2_to_ASCII = 7'd78; // N
             7'h44:
-                out = 7'd79; // O
+                ps2_to_ASCII = 7'd79; // O
             7'h4d:
-                out = 7'd80; // P
+                ps2_to_ASCII = 7'd80; // P
             7'h15:
-                out = 7'd81; // Q
+                ps2_to_ASCII = 7'd81; // Q
             7'h2d:
-                out = 7'd82; // R
+                ps2_to_ASCII = 7'd82; // R
             7'h1b:
-                out = 7'd83; // S
+                ps2_to_ASCII = 7'd83; // S
             7'h2c:
-                out = 7'd84; // T
+                ps2_to_ASCII = 7'd84; // T
             7'h3c:
-                out = 7'd85; // U
+                ps2_to_ASCII = 7'd85; // U
             7'h2a:
-                out = 7'd86; // V
+                ps2_to_ASCII = 7'd86; // V
             7'h1d:
-                out = 7'd87; // W
+                ps2_to_ASCII = 7'd87; // W
             7'h22:
-                out = 7'd88; // X
+                ps2_to_ASCII = 7'd88; // X
             7'h35:
-                out = 7'd89; // Y
+                ps2_to_ASCII = 7'd89; // Y
             7'h1a:
-                out = 7'd90; // Z
+                ps2_to_ASCII = 7'd90; // Z
             default:
-                out = 7'd63; // ?
+                ps2_to_ASCII = 7'd63; // ?
+        endcase
     endfunction
 
     function odd_pairity;
