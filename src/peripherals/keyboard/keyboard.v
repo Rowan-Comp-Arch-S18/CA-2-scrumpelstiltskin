@@ -24,6 +24,8 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
     function ps2_to_ASCII;
         input [7:0] in;
         case(in)
+            8'h29:
+                ps2_to_ASCII = 8'd32; // SPACE
             8'h45:
                 ps2_to_ASCII = 8'd48; // 0
             8'h16:

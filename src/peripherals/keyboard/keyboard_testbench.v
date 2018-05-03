@@ -20,65 +20,7 @@ module keyboard_testbench();
         PS2_count <= 8'd0;
         PS2_clk <= 1'b0;
         PS2_data <= 1'b0;
-        message <= 16'b0000010000111000;
-        /*
-		  
-		  
-        // H
-		  #10
-        PS2_data <= 1'b0;
-
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b1;
-        #20 PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b1;
-
-        #20
-        PS2_data <= 1'b0;
-
-        #20
-        PS2_data <= 1'b1;
-		  
-		  // E
-		  #20
-        PS2_data <= 1'b0;
-
-        #20
-        PS2_data <= 1'b1;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b1;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b0;
-        #20
-        PS2_data <= 1'b1;
-        #20
-        PS2_data <= 1'b1;
-        #20
-        PS2_data <= 1'b0;
-
-        #20
-        PS2_data <= 1'b0;
-
-        #20
-        PS2_data <= 1'b1;
-
-		  #40
-          */
+        message <= 16'h1c32;
         $stop;
     end
 
