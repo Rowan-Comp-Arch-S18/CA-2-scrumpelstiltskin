@@ -177,7 +177,7 @@ module rom_case(out, address);
     endmodule
     */
 
-
+/*
 // Clock speed test
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 /*module rom_case(out, address);
@@ -249,7 +249,7 @@ module rom_case(out, address);
 		endcase
 	end
 endmodule
-
+*/
 /*
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 module rom_case(out, address);
