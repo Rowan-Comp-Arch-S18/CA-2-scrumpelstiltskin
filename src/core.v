@@ -94,15 +94,6 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
         .HEX2(HEX2), 
         .HEX3(HEX3)
     );
-	 mouse_ps2 mouse_peripheral(
-			.clock(clock), 
-			.reset(reset), 
-			.mouse_signal(ps_kbdata), 
-			.mouse_clk(ps_kbclock),  
-			.address(address_bus), 
-			.data(data_bus), 
-			.read(read)
-	);
 
 endmodule
 

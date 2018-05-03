@@ -1,19 +1,4 @@
 /*
-//MOUSE
-module rom_case(out, address);
-    output reg [31:0] out;
-    input [15:0] address;
-    always @ (address) begin
-        case (address)
-            16'd0: out = 32'b11010010100001000100101000000001;
-            16'd1: out = 32'b11111000010000000000000000100010;
-            16'd2: out = 32'b11010010100001000000000000000011;
-            16'd3: out = 32'b11111000000000000000000001100010;
-            default: out = 32'hD60003E0; // BR XZR
-        endcase
-    end
-end
-
 // Keyboard test
 module rom_case(out, address);
     output reg [31:0] out;
@@ -169,10 +154,8 @@ module rom_case(out, address);
     end
     endmodule
     */
-/*
 
 
-*/
 // Clock speed test
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 module rom_case(out, address);
