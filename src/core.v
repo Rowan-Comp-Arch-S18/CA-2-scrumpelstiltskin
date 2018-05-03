@@ -82,7 +82,7 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
         .read(read)
     );
 
-     seven_seg_perpherial Seven_Seg(
+     seven_seg_perpherial seven_seg(
         .data(data_bus), 
         .address(address_bus), 
         .read(read), 

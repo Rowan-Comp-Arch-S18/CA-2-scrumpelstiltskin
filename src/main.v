@@ -32,10 +32,10 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
     wire [63:0] program_count;
     wire [31:0] instruction;
 	 
-	 wire HEX0_wire;
-	 wire HEX1_wire;
-	 wire HEX2_wire;
-	 wire HEX3_wire;
+	 wire [6:0]HEX0_wire;
+	 wire [6:0]HEX1_wire;
+	 wire [6:0]HEX2_wire;
+	 wire [6:0]HEX3_wire;
 
     core core(
         .clock(core_clock),
