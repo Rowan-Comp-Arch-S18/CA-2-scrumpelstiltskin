@@ -1,4 +1,4 @@
-module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, vga_v_sync, vga_clock, data_bus, address_bus, read, write, program_count, r0, r1, r2, r3,r4, r5, r6, r7, instruction);
+module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga_blue_out, vga_h_sync, vga_v_sync, vga_clock,    data_bus, address_bus, read, write, program_count, r0, r1, r2, r3,r4, r5, r6, r7, instruction, HEX0, HEX1, HEX2, HEX3);
 
     input clock, reset;
 
@@ -8,6 +8,8 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
 
     output [3:0] vga_red_out, vga_green_out, vga_blue_out;
     output vga_h_sync, vga_v_sync;
+
+    output [6:0] HEX0, HEX1, HEX2, HEX3;
 
     wire [63:0] constant;
     wire [30:0] controlword;
@@ -78,7 +80,20 @@ module core(clock, reset, ps_kbdata, ps_kbclock, vga_red_out, vga_green_out, vga
         .data(data_bus),
         .reset(reset),
         .read(read)
-       );
+    );
+
+     seven_seg_perpherial Seven_Seg(
+        .data(data_bus), 
+        .address(address_bus), 
+        .read(read), 
+        .write(write), 
+        .reset(reset), 
+        .clock(clock), 
+        .HEX0(HEX0), 
+        .HEX1(HEX1), 
+        .HEX2(HEX2), 
+        .HEX3(HEX3)
+    );
 
 endmodule
 
