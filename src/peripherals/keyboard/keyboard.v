@@ -19,7 +19,7 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
 
     wire address_detected = ((address == VRAM_ADDRESS) && read);
 
-    assign data = address_detected ? {56'b0, ps2_to_ASCII(active_character)} : 64'bz;
+    assign data = address_detected ? {56'b0, active_character/*ps2_to_ASCII(active_character)*/} : 64'bz;
 
     function [7:0] ps2_to_ASCII;
         input [7:0] in;
