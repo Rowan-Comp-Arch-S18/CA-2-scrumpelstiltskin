@@ -31,6 +31,11 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
     wire read, write;
     wire [63:0] program_count;
     wire [31:0] instruction;
+	 
+	 wire HEX0_wire;
+	 wire HEX1_wire;
+	 wire HEX2_wire;
+	 wire HEX3_wire;
 
     core core(
         .clock(core_clock),
@@ -57,11 +62,16 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
         .r5(r5),
         .r6(r6),
         .r7(r7),
-        .HEX0(HEX0),
-        .HEX1(HEX1),
-        .HEX2(HEX2),
-        .HEX3(HEX3)
+        .HEX0(HEX0_wire),
+        .HEX1(HEX1_wire),
+        .HEX2(HEX2_wire),
+        .HEX3(HEX3_wire)
     );
+	 
+	 assign HEX0 = ~ HEX0_wire;
+	 assign HEX1 = ~ HEX1_wire;
+	 assign HEX2 = ~ HEX2_wire;
+	 assign HEX3 = ~ HEX3_wire;
 
     wire [6:0] data_hex0, data_hex1, data_hex2, data_hex3;
     wire [6:0] address_hex0, address_hex1, address_hex2, address_hex3;

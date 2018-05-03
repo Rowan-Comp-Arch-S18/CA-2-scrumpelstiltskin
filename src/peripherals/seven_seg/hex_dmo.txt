@@ -1,0 +1,4 @@
+
+MOVZ X2, 8192
+MOVZ X3, 25
+STUR X3, [X2, 0]

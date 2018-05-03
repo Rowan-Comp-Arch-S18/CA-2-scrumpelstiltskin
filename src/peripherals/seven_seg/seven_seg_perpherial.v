@@ -13,7 +13,7 @@ module seven_seg_perpherial(data, address, read, write, reset, clock, HEX0, HEX1
     always @ (posedge clock) begin
         if (reset) begin
             reg_value <= 64'd0;
-        end else if (load) begin
+        end else if (load_wire) begin
             reg_value <= data; 
         end
     end
@@ -22,7 +22,6 @@ module seven_seg_perpherial(data, address, read, write, reset, clock, HEX0, HEX1
     wire load_wire;
     wire en_buffer;
 
-
     parameter ADDRESS = 64'h2000; // For assigning an address
 
     assign address_detect = ADDRESS ? 1'b1 : 1'b0;
@@ -30,24 +29,24 @@ module seven_seg_perpherial(data, address, read, write, reset, clock, HEX0, HEX1
     assign en_buffer = address_detect & read;
     assign data = en_buffer ? reg_value : 64'bz;
 
-    sevenHEX0 Seven_Seg(
+    Seven_Seg sevenHEX0(
         .in(reg_value[3:0]),
-        .out(~HEX0)
+        .out(HEX0)
     );
 
-    sevenHEX1 Seven_Seg(
+    Seven_Seg sevenHEX1(
         .in(reg_value[7:4]),
-        .out(~HEX1)
+        .out(HEX1)
     );
 
-    sevenHEX2 Seven_Seg(
+    Seven_Seg sevenHEX2(
         .in(reg_value[11:8]),
-        .out(~HEX2)
+        .out(HEX2)
     );
 
-    sevenHEX3 Seven_Seg(
+    Seven_Seg sevenHEX3(
         .in(reg_value[15:12]),
-        .out(~HEX3)
+        .out(HEX3)
     );
 
 endmodule

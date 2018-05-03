@@ -4,6 +4,19 @@ module rom_case(out, address);
     input [15:0] address;
     always @ (address) begin
         case (address)
+            16'd0: out = 32'b11010010100001000000000000000010;
+            16'd1: out = 32'b11010010100000000000001100100011;
+            16'd2: out = 32'b11111000000000000000000001000011;
+            default: out = 32'hD60003E0; // BR XZR
+        endcase
+    end
+endmodule 
+
+/*module rom_case(out, address);
+    output reg [31:0] out;
+    input [15:0] address;
+    always @ (address) begin
+        case (address)
             16'd0: out = 32'b11010010100001001010000000000000;
             16'd1: out = 32'b11010010100001100000000000000001;
             16'd2: out = 32'b11111000010000000000000000000010;
