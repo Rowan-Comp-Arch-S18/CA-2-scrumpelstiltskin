@@ -1,4 +1,4 @@
-module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1, HEX2);
+module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, BUTTON, LEDG, GPIO0_D, GPIO1_D, HEX0, HEX1,     HEX2, HEX3);
 
     input CLOCK_50;
     input [2:0] BUTTON;
@@ -9,7 +9,7 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
     output [3:0] VGA_R, VGA_G, VGA_B;
     output VGA_HS, VGA_VS;
 
-    output [6:0] HEX0, HEX1, HEX2;
+    output [6:0] HEX0, HEX1, HEX2, HEX3;
 
     output [31:0] GPIO0_D;
     inout [31:0] GPIO1_D;
@@ -56,7 +56,11 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
         .r4(r4),
         .r5(r5),
         .r6(r6),
-        .r7(r7)
+        .r7(r7),
+        .HEX0(HEX0),
+        .HEX1(HEX1),
+        .HEX2(HEX2),
+        .HEX3(HEX3)
     );
 
     wire [6:0] data_hex0, data_hex1, data_hex2, data_hex3;
@@ -79,7 +83,7 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
         .hex3(address_hex3)
     );
 
-    quad_7seg_decoder program_counter_decoder(
+    /*quad_7seg_decoder program_counter_decoder(
         .in(program_count[15:0]),
         .hex0(program_counter_hex0),
         .hex1(program_counter_hex1),
@@ -91,6 +95,7 @@ module main(CLOCK_50, PS2_KBCLK, PS2_KBDAT, VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS,
     assign HEX1 = ~program_counter_hex1;
     assign HEX2 = ~program_counter_hex2;
     assign HEX3 = ~program_counter_hex3;
+    */
 
     GPIO_Board gpio(
         .clock_50(CLOCK_50),

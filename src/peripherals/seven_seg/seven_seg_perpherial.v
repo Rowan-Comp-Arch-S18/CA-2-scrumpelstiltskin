@@ -32,22 +32,22 @@ module seven_seg_perpherial(data, address, read, write, reset, clock, HEX0, HEX1
 
     sevenHEX0 Seven_Seg(
         .in(reg_value[3:0]),
-        .out(HEX0)
+        .out(~HEX0)
     );
 
     sevenHEX1 Seven_Seg(
         .in(reg_value[7:4]),
-        .out(HEX1)
+        .out(~HEX1)
     );
 
     sevenHEX2 Seven_Seg(
         .in(reg_value[11:8]),
-        .out(HEX2)
+        .out(~HEX2)
     );
 
     sevenHEX3 Seven_Seg(
         .in(reg_value[15:12]),
-        .out(HEX3)
+        .out(~HEX3)
     );
 
 endmodule
