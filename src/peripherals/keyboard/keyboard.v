@@ -13,6 +13,7 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
     reg [3:0] input_counter;
     reg [7:0] active_character;
     reg [7:0] character_buffer;
+    reg [10:0] input_buffer;
 
     reg input_error;
 
@@ -113,6 +114,17 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
     end
 
     always @(negedge PS2_clk) begin
+
+        input_buffer[input_counter] <= PS2_data;
+
+        if (input_counter >= 4'd10) begin
+            input_counter <= 4'd0;
+            active_character <= input_buffer[8:1];
+        end else begin
+            input_counter <= input_counter + 4'd1;
+        end
+
+        /*
         if(input_counter == 4'b0) begin
             if(PS2_data != 1'b0) begin
                 input_error <= 1'b1;
@@ -137,15 +149,16 @@ module keyboard(address, PS2_data, PS2_clk, system_clk, data, reset, read);
         end
 
         if(!input_error) begin
-            input_counter <= input_counter + 4'b1;
+            //input_counter <= input_counter + 4'b1;
         end
         else begin
-            input_counter <= 4'b0;
+            //input_counter <= 4'b0;
             input_error <= 1'b0;
         end
         if(input_counter == 4'ha) begin
                input_counter <= 4'b0;
                 character_buffer <= 8'b0;
         end
+        */
     end
 endmodule

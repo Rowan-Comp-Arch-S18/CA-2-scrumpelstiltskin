@@ -1,4 +1,5 @@
-
+/*
+// Keyboard test
 module rom_case(out, address);
     output reg [31:0] out;
     input [15:0] address;
@@ -26,8 +27,10 @@ endmodule
         endcase
     end
     endmodule
+    */
 
 /*
+// VGA dmeo
 module rom_case(out, address);
     output reg [31:0] out;
     input [15:0] address;
@@ -124,6 +127,7 @@ module rom_case(out, address);
     */
 
 /*
+// VGA test
 module rom_case(out, address);
     output reg [31:0] out;
     input [15:0] address;
@@ -151,7 +155,8 @@ module rom_case(out, address);
     endmodule
     */
 
-/*
+
+// Clock speed test
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 module rom_case(out, address);
 	output reg [31:0] out;
@@ -222,7 +227,7 @@ module rom_case(out, address);
 		endcase
 	end
 endmodule
-*/
+
 /*
 // auto generated from http://users.rowan.edu/~haskellt8/assembler/
 module rom_case(out, address);
@@ -283,6 +288,7 @@ void IncDec(void) {
 }
 */
 /*
+// Initial core test
 module rom_case(out, address);
     output reg [31:0] out;
     input [15:0] address;
